@@ -11,16 +11,25 @@ import javax.servlet.ServletException;
 /**
  * Created by rumman on 10/24/16.
  */
-@WebServlet(name = "ShalomServlet", urlPatterns = {"/a/b/c", "/servlets/shalom"})
+@WebServlet(name = "ShalomServlet", urlPatterns = { "/login" })
 public class ShalomServlet extends HttpServlet {
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//
-//    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String userName = request.getParameter("username");
+        String password = request.getParameter("password");
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<h1>Hello Servlet</h1>");
+        out.println("<h1>"+userName+"</h1>");
+        out.println("<h1>"+password+"</h1>");
         out.flush();
+
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        response.setContentType("text/html");
+//        PrintWriter out = response.getWriter();
+//        out.println("<h1>Hello Servlet</h1>");
+//        out.flush();
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 }

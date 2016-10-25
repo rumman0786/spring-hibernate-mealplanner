@@ -7,4 +7,35 @@
         <servlet-name>ShalomServlet</servlet-name>
         <servlet-class>com.lifemichael.samples.ShalomServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>ShalomServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DishList</servlet-name>
+        <servlet-class>net.therap.mealplanner.servlets.DishList</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DishList</servlet-name>
+        <url-pattern>/dish-list</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddDish</servlet-name>
+        <servlet-class>net.therap.mealplanner.servlets.AddDish</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddDish</servlet-name>
+        <url-pattern>/add-dish</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditDish</servlet-name>
+        <servlet-class>net.therap.mealplanner.servlets.EditDish</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditDish</servlet-name>
+        <url-pattern>/edit-dish/*</url-pattern>
+    </servlet-mapping>
 </web-app>

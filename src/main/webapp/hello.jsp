@@ -11,7 +11,7 @@
     <title></title>
 </head>
 <body>
-<% String s = "Hello JAva";
+<% String s = "Hello JAva from servlet";
 out.println(s);
 %>
 </body>
