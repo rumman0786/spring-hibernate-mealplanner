@@ -5,6 +5,6 @@
          version="3.1">
     <servlet>
         <servlet-name>ShalomServlet</servlet-name>
-        <servlet-class>main.java.com.lifemichael.samples.ShalomServlet</servlet-class>
+        <servlet-class>com.lifemichael.samples.ShalomServlet</servlet-class>
     </servlet>
 </web-app>
