@@ -38,4 +38,13 @@
         <servlet-name>EditDish</servlet-name>
         <url-pattern>/edit-dish/*</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteDish</servlet-name>
+        <servlet-class>net.therap.mealplanner.servlets.DeleteDish</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteDish</servlet-name>
+        <url-pattern>/delete-dish/*</url-pattern>
+    </servlet-mapping>
 </web-app>

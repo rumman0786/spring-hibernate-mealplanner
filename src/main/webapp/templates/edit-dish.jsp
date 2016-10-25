@@ -1,3 +1,4 @@
+<%@ page import="net.therap.mealplanner.entity.Dish" %>
 <%--
   Created by IntelliJ IDEA.
   User: rumman
@@ -25,17 +26,19 @@
 <body>
 
 <div class="container">
+    <%  Dish dish = (Dish) request.getAttribute("dish"); %>
 
     <form class="form-signin" method="post" action="/idea-jsp-servlet-tomcat-example/edit-dish">
     <%--<form class="form-signin" method="post" action="/login">--%>
         <h2 class="form-signin-heading">Add a Dish</h2>
 
         <label for="dishname" class="sr-only">Dish Name</label>
-        <input type="text" id="dishname" class="form-control" placeholder="Dish Name" name="dishname" required autofocus>
+        <input type="text" id="dishname" class="form-control" placeholder="Dish Name" name="dishname" value="<% out.print(dish.getName()); %>" required autofocus>
 
         <label for="calories" class="sr-only">Calories</label>
-        <input type="text" id="calories" class="form-control"  name="calories" placeholder="Calories" required>
+        <input type="text" id="calories" class="form-control"  name="calories" placeholder="Calories" value="<% out.print(dish.getCalories()); %>" required>
 
+        <input type="hidden" id="dish_id" name="dish_id" value="<%out.print(dish.getId());%>" required>
         <input class="btn btn-lg btn-primary btn-block" value="Save" type="submit"/>
     </form>
 

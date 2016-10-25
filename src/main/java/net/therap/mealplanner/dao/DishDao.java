@@ -11,7 +11,7 @@ import java.util.List;
 public interface DishDao {
     List<Dish> findAll();
 
-    List<Dish> findById(int dishId);
+    public Dish findById(int dishId);
 
     List<Dish> findByName(String dishName);
 

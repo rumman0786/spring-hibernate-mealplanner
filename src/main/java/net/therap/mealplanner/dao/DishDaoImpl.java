@@ -26,8 +26,12 @@ public class DishDaoImpl implements DishDao {
     }
 
     @Override
-    public List<Dish> findById(int dishId) {
-        return null;
+    public Dish findById(int dishId) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+        Session session = sessionFactory.openSession();
+        Dish dish =  (Dish) session.get(Dish.class, dishId);
+        session.close();
+        return dish;
     }
 
     @Override

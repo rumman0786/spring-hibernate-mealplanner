@@ -92,7 +92,7 @@
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <a href="http://www.google.com" class="btn btn-success pull-right">Add Dish</a>
+            <a href="/idea-jsp-servlet-tomcat-example/add-dish" class="btn btn-success pull-right">Add Dish</a>
             <h2 class="sub-header">Dish List</h2>
 
             <div class="table-responsive">
@@ -112,10 +112,11 @@
                     // print the information about every dish of the list
                     for(Dish dish : dishList ) { %>
                     <tr>
-                        <td><% out.println(dish.getName()); %></td>
-                        <td><% out.println(dish.getCalories()); %></td>
-                        <td><a href="/idea-jsp-servlet-tomcat-example/edit-dish/?id=<% out.println(dish.getId()); %>"><span class="glyphicon glyphicon-edit"></span><a/></td>
-                        <td><a href="http://www.google.com"><span class="glyphicon glyphicon-trash"></span><a/></td>
+                        <td><% out.print(dish.getName()); %></td>
+                        <td><% out.print(dish.getCalories()); %></td>
+                        <td><a href="/idea-jsp-servlet-tomcat-example/edit-dish/?id=<% out.print(dish.getId()); %>"><span class="glyphicon glyphicon-edit"></span><a/></td>
+                        <%--<td><a href="http://www.google.com"><span class="glyphicon glyphicon-trash"></span><a/></td>--%>
+                        <td><a href="#" data-href="/idea-jsp-servlet-tomcat-example/delete-dish/?id=<% out.print(dish.getId()); %>" data-toggle="modal" data-target="#confirm-delete" class="delete-user-item" ><span class="glyphicon glyphicon-trash"></span></a></td>
                     </tr>
 
                     <% } %>
@@ -138,5 +139,34 @@
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <%--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>--%>
 </body>
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>You are about to delete a user, this procedure is irreversible.</p>
+                <p>Do you want to proceed?</p>
+                <p class="debug-url"></p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a href="#" class="btn btn-danger btn-ok">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.delete-user-item').on('click', function(e) {
+        var criteria_id = $(this).attr("data-href");
+        $('.btn-ok').attr("href",criteria_id);
+    });
+</script>
 </html>
 
