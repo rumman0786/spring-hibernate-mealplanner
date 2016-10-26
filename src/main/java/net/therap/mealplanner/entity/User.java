@@ -1,22 +1,54 @@
 package net.therap.mealplanner.entity;
 
+import javax.persistence.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * @author rumman
  * @since 10/25/16
  */
+@Entity
+@Table(name = "auth_user")
 public class User {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "username")
     private String username;
-    private String first_name;
-    private String last_name;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "password")
     private String password;
-    private boolean is_active;
-    private boolean is_admin;
-    private boolean is_superuser;
-    private String last_login;
+
+    @Column(name = "is_active")
+    private boolean isActive;
+
+    @Column(name = "is_superuser")
+    private boolean isSuperuser;
+
+    @Column(name = "last_login")
+    private String lastLogin;
 
     public User() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -27,20 +59,20 @@ public class User {
         this.username = username;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -55,40 +87,50 @@ public class User {
         return password;
     }
 
+    public static String makePassword(String password) {
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+            md.update(password.getBytes());
+            byte byteData[] = md.digest();
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < byteData.length; i++) {
+                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            password = sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            password = password;
+            e.printStackTrace();
+        }
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public boolean isIs_active() {
-        return is_active;
+    public boolean isActive() {
+        return isActive;
     }
 
-    public void setIs_active(boolean is_active) {
-        this.is_active = is_active;
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
     }
 
-    public boolean isIs_admin() {
-        return is_admin;
+    public boolean isSuperuser() {
+        return isSuperuser;
     }
 
-    public void setIs_admin(boolean is_admin) {
-        this.is_admin = is_admin;
+    public void setSuperuser(boolean isSuperuser) {
+        this.isSuperuser = isSuperuser;
     }
 
-    public boolean isIs_superuser() {
-        return is_superuser;
+    public String getLastLogin() {
+        return lastLogin;
     }
 
-    public void setIs_superuser(boolean is_superuser) {
-        this.is_superuser = is_superuser;
-    }
-
-    public String getLast_login() {
-        return last_login;
-    }
-
-    public void setLast_login(String last_login) {
-        this.last_login = last_login;
+    public void setLastLogin(String lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
     @Override

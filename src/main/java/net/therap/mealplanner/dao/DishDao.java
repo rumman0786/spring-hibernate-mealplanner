@@ -9,11 +9,11 @@ import java.util.List;
  * @since 10/16/16
  */
 public interface DishDao {
-    List<Dish> findAll();
+    public List<Dish> findAll();
 
     public Dish findById(int dishId);
 
-    List<Dish> findByName(String dishName);
+    public List<Dish> findByName(String dishName);
 
     boolean insertDish(Dish dish);
 

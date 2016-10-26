@@ -20,17 +20,6 @@ import java.util.List;
 
 @WebServlet(name = "DishList", urlPatterns = {"/dish-list"})
 public class DishList extends HttpServlet {
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String userName = request.getParameter("username");
-//        String password = request.getParameter("password");
-//        response.setContentType("text/html");
-//        PrintWriter out = response.getWriter();
-//        out.println("<h1>Hello Servlet</h1>");
-//        out.println("<h1>" + userName + "</h1>");
-//        out.println("<h1>" + password + "</h1>");
-//        out.flush();
-//
-//    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DishDao dishDao = new DishDaoImpl();

@@ -26,17 +26,27 @@
 
 <div class="container">
 
-    <form class="form-signin" method="post" action="/idea-jsp-servlet-tomcat-example/login">
+    <form class="form-signin" method="post" action="/idea-jsp-servlet-tomcat-example/add-user">
     <%--<form class="form-signin" method="post" action="/login">--%>
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading">User Registraion</h2>
 
-        <label for="username" class="sr-only">Email address</label>
+        <label for="username" class="sr-only">Username</label>
         <input type="text" id="username" class="form-control" placeholder="Username" name="username" required autofocus>
 
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control"  name="password" placeholder="Password" required>
+        <label for="first_name" class="sr-only">First Name</label>
+        <input type="text" id="first_name" class="form-control" placeholder="First Name" name="first_name">
 
-        <input class="btn btn-lg btn-primary btn-block" value="Sign in" type="submit"/>
+        <label for="last_name" class="sr-only">Last Name</label>
+        <input type="text" id="last_name" class="form-control" placeholder="Last Name" name="last_name">
+
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" class="form-control"  name="password" placeholder="Password" required>
+        <%--Add a second password field and match with this--%>
+
+        <label for="email" class="sr-only">Email</label>
+        <input type="email" id="email" class="form-control" placeholder="Email" name="email" required autofocus>
+
+        <input class="btn btn-lg btn-primary btn-block" value="Save" type="submit"/>
     </form>
 
 </div> <!-- /container -->

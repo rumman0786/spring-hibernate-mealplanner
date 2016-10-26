@@ -18,11 +18,6 @@ import java.util.List;
  */
 @WebServlet(name = "DeleteDish", urlPatterns = {"/delete-dish"})
 public class DeleteDish extends HttpServlet {
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        String password = request.getParameter("password");
-//        response.setContentType("text/html");
-//    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DishManager dishManager = new DishManager();
