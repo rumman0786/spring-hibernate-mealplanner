@@ -1,4 +1,6 @@
 .idea/
-TestJsp.iml
+*.iml
 build/
 out/
+.gradle/
+lib/
