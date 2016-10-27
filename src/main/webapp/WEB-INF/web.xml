@@ -49,6 +49,42 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>MealList</servlet-name>
+        <servlet-class>net.therap.mealplanner.servlets.MealList</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MealList</servlet-name>
+        <url-pattern>/meal-list</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddMeal</servlet-name>
+        <servlet-class>net.therap.mealplanner.servlets.AddMeal</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddMeal</servlet-name>
+        <url-pattern>/add-meal</url-pattern>
+    </servlet-mapping>
+
+    <!--<servlet>-->
+        <!--<servlet-name>EditDish</servlet-name>-->
+        <!--<servlet-class>net.therap.mealplanner.servlets.EditDish</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>EditDish</servlet-name>-->
+        <!--<url-pattern>/edit-dish/*</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--<servlet>-->
+        <!--<servlet-name>DeleteDish</servlet-name>-->
+        <!--<servlet-class>net.therap.mealplanner.servlets.DeleteDish</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>DeleteDish</servlet-name>-->
+        <!--<url-pattern>/delete-dish/*</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <servlet>
         <servlet-name>UserList</servlet-name>
         <servlet-class>net.therap.mealplanner.servlets.UserList</servlet-class>
     </servlet>
