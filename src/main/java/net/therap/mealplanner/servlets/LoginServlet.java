@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet{
             session.setAttribute("name",user.getUsername());
             response.sendRedirect("/idea-jsp-servlet-tomcat-example/user-list");
         } else {
-            response.sendRedirect("/idea-jsp-servlet-tomcat-example/login");
+            response.sendRedirect(request.getContextPath()+"/login");
         }
     }
 

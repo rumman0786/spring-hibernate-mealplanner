@@ -39,7 +39,7 @@ public class EditUser extends HttpServlet {
 //        }
         //TODO  Either send a get param or post to indicate success or failure to add a dish
 //        request.setAttribute("dishList", dishList);
-        response.sendRedirect("/idea-jsp-servlet-tomcat-example/user-list");
+        response.sendRedirect(request.getContextPath()+"/user-list");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -17,6 +17,6 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session=request.getSession();
         session.invalidate();
-        response.sendRedirect("/idea-jsp-servlet-tomcat-example/login");
+        response.sendRedirect(request.getContextPath()+"/login");
     }
 }

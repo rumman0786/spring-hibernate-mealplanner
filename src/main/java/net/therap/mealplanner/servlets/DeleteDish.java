@@ -25,6 +25,6 @@ public class DeleteDish extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Dish dish = dishDao.findById(id);
         boolean status = dishManager.deleteDish(dish);
-        response.sendRedirect("/idea-jsp-servlet-tomcat-example/dish-list");
+        response.sendRedirect(request.getContextPath()+"/dish-list");
     }
 }

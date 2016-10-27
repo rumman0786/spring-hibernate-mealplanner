@@ -24,13 +24,15 @@ public class LoginRequiredFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String uri = httpServletRequest.getRequestURI();
         System.out.println(uri);
+        System.out.println(httpServletRequest.getContextPath());
+
         if (httpServletRequest.getSession().getAttribute("name") != null) {
             //User must be logged in
             chain.doFilter(request, response);
         } else if (uri.contains("login") || uri.contains("statics") || uri.contains("logout") ){
             chain.doFilter(request, response);
         } else {
-            ((HttpServletResponse)response).sendRedirect("/idea-jsp-servlet-tomcat-example/login");
+            ((HttpServletResponse)response).sendRedirect(httpServletRequest.getContextPath()+"/login");
         }
     }
 

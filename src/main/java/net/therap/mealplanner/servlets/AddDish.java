@@ -33,7 +33,7 @@ public class AddDish extends HttpServlet {
         }
         //TODO  Either send a get param or post to indicate success or failure to add a dish
 //        request.setAttribute("dishList", dishList);
-        response.sendRedirect("/idea-jsp-servlet-tomcat-example/dish-list");
+        response.sendRedirect(request.getContextPath()+"/dish-list");
      }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
