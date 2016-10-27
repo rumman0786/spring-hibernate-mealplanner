@@ -23,6 +23,6 @@ public class DeleteUser extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         User user = userDao.findById(id);
         boolean status = userDao.deleteUser(user);
-        response.sendRedirect(request.getContextPath()+"/user-list");
+        response.sendRedirect(request.getContextPath() + "/user-list");
     }
 }

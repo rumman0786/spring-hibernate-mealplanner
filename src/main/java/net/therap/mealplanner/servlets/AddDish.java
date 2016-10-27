@@ -1,7 +1,5 @@
 package net.therap.mealplanner.servlets;
 
-import net.therap.mealplanner.dao.DishDao;
-import net.therap.mealplanner.dao.DishDaoImpl;
 import net.therap.mealplanner.entity.Dish;
 import net.therap.mealplanner.services.DishManager;
 
@@ -11,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 /**
  * @author rumman
@@ -33,8 +29,8 @@ public class AddDish extends HttpServlet {
         }
         //TODO  Either send a get param or post to indicate success or failure to add a dish
 //        request.setAttribute("dishList", dishList);
-        response.sendRedirect(request.getContextPath()+"/dish-list");
-     }
+        response.sendRedirect(request.getContextPath() + "/dish-list");
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/templates/add-dish.jsp").forward(request, response);

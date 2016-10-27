@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by rumman on 10/25/16.
@@ -25,6 +24,6 @@ public class DeleteDish extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Dish dish = dishDao.findById(id);
         boolean status = dishManager.deleteDish(dish);
-        response.sendRedirect(request.getContextPath()+"/dish-list");
+        response.sendRedirect(request.getContextPath() + "/dish-list");
     }
 }

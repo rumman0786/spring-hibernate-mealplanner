@@ -39,13 +39,13 @@ public class EditUser extends HttpServlet {
 //        }
         //TODO  Either send a get param or post to indicate success or failure to add a dish
 //        request.setAttribute("dishList", dishList);
-        response.sendRedirect(request.getContextPath()+"/user-list");
+        response.sendRedirect(request.getContextPath() + "/user-list");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         UserDao userDao = new UserDaoImpl();
-        User user= userDao.findById(id);
+        User user = userDao.findById(id);
         request.setAttribute("user", user);
         request.getRequestDispatcher("/templates/edit-user.jsp").forward(request, response);
     }
