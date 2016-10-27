@@ -18,13 +18,13 @@
     <title>Meal Planner | Therap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/idea-jsp-servlet-tomcat-example/statics/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<% out.print(request.getContextPath());%>/statics/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <%--<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">--%>
 
     <!-- Custom styles for this template -->
-    <link href="/idea-jsp-servlet-tomcat-example/statics/css/dashboard.css" rel="stylesheet">
+    <link href="<% out.print(request.getContextPath());%>/statics/css/dashboard.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><!--<script src="../../assets/js/ie8-responsive-file-warning.js"></script>--><![endif]-->

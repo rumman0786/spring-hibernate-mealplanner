@@ -18,16 +18,5 @@
         <li class="<% if (request.getAttribute("page") == "meal") {out.print("active");} %>"><a
                 href="<% out.print(request.getContextPath()); %>/meal-list">Meal Management</a></li>
     </ul>
-    <%--<ul class="nav nav-sidebar">--%>
-    <%--<li><a href="">Nav item</a></li>--%>
-    <%--<li><a href="">Nav item again</a></li>--%>
-    <%--<li><a href="">One more nav</a></li>--%>
-    <%--<li><a href="">Another nav item</a></li>--%>
-    <%--<li><a href="">More navigation</a></li>--%>
-    <%--</ul>--%>
-    <%--<ul class="nav nav-sidebar">--%>
-    <%--<li><a href="">Nav item again</a></li>--%>
-    <%--<li><a href="">One more nav</a></li>--%>
-    <%--<li><a href="">Another nav item</a></li>--%>
-    <%--</ul>--%>
+
 </div>

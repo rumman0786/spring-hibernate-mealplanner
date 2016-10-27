@@ -11,7 +11,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="/idea-jsp-servlet-tomcat-example/statics/js/bootstrap.min.js"></script>
+<script src="<% out.print(request.getContextPath());%>/statics/js/bootstrap.min.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 <%--<script src="../../assets/js/vendor/holder.min.js"></script>--%>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
