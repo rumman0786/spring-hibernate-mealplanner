@@ -33,6 +33,7 @@ public class AddDish extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("page", "dish");
         request.getRequestDispatcher("/templates/add-dish.jsp").forward(request, response);
     }
 }

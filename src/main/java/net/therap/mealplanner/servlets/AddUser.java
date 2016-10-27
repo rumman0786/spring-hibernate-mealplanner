@@ -42,6 +42,7 @@ public class AddUser extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("page", "user");
         request.getRequestDispatcher("/templates/add-user.jsp").forward(request, response);
     }
 }

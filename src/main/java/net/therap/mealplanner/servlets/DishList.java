@@ -24,6 +24,7 @@ public class DishList extends HttpServlet {
         DishDao dishDao = new DishDaoImpl();
         List<Dish> dishList = dishDao.findAll();
         request.setAttribute("dishList", dishList);
+        request.setAttribute("page", "dish");
         request.getRequestDispatcher("/templates/list_dish.jsp").forward(request, response);
     }
 }

@@ -47,6 +47,7 @@ public class EditUser extends HttpServlet {
         UserDao userDao = new UserDaoImpl();
         User user = userDao.findById(id);
         request.setAttribute("user", user);
+        request.setAttribute("page", "user");
         request.getRequestDispatcher("/templates/edit-user.jsp").forward(request, response);
     }
 }

@@ -7,48 +7,42 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Meal Planner- Therap</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/idea-jsp-servlet-tomcat-example/statics/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/idea-jsp-servlet-tomcat-example/statics/css/signin.css" rel="stylesheet">
-</head>
+<%@ include file="header.jsp" %>
 
 <body>
+<%@ include file="topbar.jsp" %>
+<div class="container-fluid">
+    <div class="row">
+        <%@ include file="sidebar.jsp" %>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <form class="form-signin" method="post" action="/idea-jsp-servlet-tomcat-example/add-user">
+                <%--<form class="form-signin" method="post" action="/login">--%>
+                <h2 class="form-signin-heading">User Registraion</h2>
 
-<div class="container">
+                <label for="username" class="sr-only">Username</label>
+                <input type="text" id="username" class="form-control" placeholder="Username" name="username" required
+                       autofocus>
 
-    <form class="form-signin" method="post" action="/idea-jsp-servlet-tomcat-example/add-user">
-    <%--<form class="form-signin" method="post" action="/login">--%>
-        <h2 class="form-signin-heading">User Registraion</h2>
+                <label for="first_name" class="sr-only">First Name</label>
+                <input type="text" id="first_name" class="form-control" placeholder="First Name" name="first_name">
 
-        <label for="username" class="sr-only">Username</label>
-        <input type="text" id="username" class="form-control" placeholder="Username" name="username" required autofocus>
+                <label for="last_name" class="sr-only">Last Name</label>
+                <input type="text" id="last_name" class="form-control" placeholder="Last Name" name="last_name">
 
-        <label for="first_name" class="sr-only">First Name</label>
-        <input type="text" id="first_name" class="form-control" placeholder="First Name" name="first_name">
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" class="form-control" name="password" placeholder="Password"
+                       required>
+                <%--Add a second password field and match with this--%>
 
-        <label for="last_name" class="sr-only">Last Name</label>
-        <input type="text" id="last_name" class="form-control" placeholder="Last Name" name="last_name">
+                <label for="email" class="sr-only">Email</label>
+                <input type="email" id="email" class="form-control" placeholder="Email" name="email" required autofocus>
 
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" class="form-control"  name="password" placeholder="Password" required>
-        <%--Add a second password field and match with this--%>
-
-        <label for="email" class="sr-only">Email</label>
-        <input type="email" id="email" class="form-control" placeholder="Email" name="email" required autofocus>
-
-        <input class="btn btn-lg btn-primary btn-block" value="Save" type="submit"/>
-    </form>
-
-</div> <!-- /container -->
+                <input class="btn btn-lg btn-primary btn-block" value="Save" type="submit"/>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /container -->
+<%@ include file="footer.jsp" %>
 </body>
 </html>

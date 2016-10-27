@@ -43,6 +43,7 @@ public class EditDish extends HttpServlet {
         DishDao dishDao = new DishDaoImpl();
         Dish dish = dishDao.findById(id);
         request.setAttribute("dish", dish);
+        request.setAttribute("page", "dish");
         request.getRequestDispatcher("/templates/edit-dish.jsp").forward(request, response);
     }
 }
