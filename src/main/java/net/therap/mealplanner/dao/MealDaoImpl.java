@@ -31,8 +31,12 @@ public class MealDaoImpl implements MealDao {
     }
 
     @Override
-    public List<Meal> findById(int mealId) {
-        return null;
+    public Meal findById(int mealId) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+        Session session = sessionFactory.openSession();
+        Meal meal =  (Meal) session.get(Meal.class, mealId);
+        session.close();
+        return meal;
     }
 
     @Override
@@ -58,16 +62,16 @@ public class MealDaoImpl implements MealDao {
     @Override
     public boolean updateMeal(Meal meal) {
         List<Meal> mealList = findAll();
-        if (!mealList.contains(meal)) {
+//        if (!mealList.contains(meal)) {
             SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
             Session session = sessionFactory.openSession();
             Transaction transaction = session.beginTransaction();
-            session.update(meal);
+            session.merge(meal);
             transaction.commit();
             session.close();
             return true;
-        }
-        return false;
+//        }
+//        return false;
     }
 
     @Override

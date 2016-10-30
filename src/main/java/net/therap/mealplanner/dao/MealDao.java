@@ -11,7 +11,7 @@ import java.util.List;
 public interface MealDao {
     List<Meal> findAll();
 
-    List<Meal> findById(int mealId);
+    Meal findById(int mealId);
 
     List<Meal> findByName(String mealName);
 

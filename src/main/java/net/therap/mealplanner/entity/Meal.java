@@ -25,7 +25,7 @@ public class Meal {
     private MenuType menuType;
 
     // Dishes that belong to this meal
-    @ManyToMany(targetEntity = Dish.class, fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @ManyToMany(targetEntity = Dish.class, fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
     @JoinTable(name="meal_dish_map",
             joinColumns={@JoinColumn(name="meal_id")},
             inverseJoinColumns={@JoinColumn(name="dish_id")})
@@ -89,8 +89,8 @@ public class Meal {
         boolean isEqual = false;
 
         if (object != null && object instanceof Meal) {
-            String mealName = ((Meal) object).getName();
-            isEqual = (this.name.equals(mealName));
+            int mealId = ((Meal) object).getId();
+            isEqual = (this.id == mealId);
         }
 
         return isEqual;
