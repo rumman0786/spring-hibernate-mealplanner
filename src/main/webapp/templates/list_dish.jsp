@@ -25,7 +25,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <%-- Checks if admin user, shows add option to admin user only--%>
             <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-            <a href="<% out.print(request.getContextPath());%>/add-dish" class="btn btn-success pull-right">Add Dish</a>
+            <a href="<% out.print(request.getContextPath());%>/admin/add-dish" class="btn btn-success pull-right">Add Dish</a>
             <% } %>
             <h2 class="sub-header">Dish List</h2>
 
@@ -49,8 +49,8 @@
                         <td><% out.print(dish.getName()); %></td>
                         <td><% out.print(dish.getCalories()); %></td>
                         <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-                        <td><a href="<% out.print(request.getContextPath());%>/edit-dish/?id=<% out.print(dish.getId()); %>"><span class="glyphicon glyphicon-edit"></span><a/></td>
-                        <td><a href="#" data-href="<% out.print(request.getContextPath());%>/delete-dish/?id=<% out.print(dish.getId()); %>" data-toggle="modal" data-target="#confirm-delete" class="delete-user-item" ><span class="glyphicon glyphicon-trash"></span></a></td>
+                        <td><a href="<% out.print(request.getContextPath());%>/admin/edit-dish/?id=<% out.print(dish.getId()); %>"><span class="glyphicon glyphicon-edit"></span><a/></td>
+                        <td><a href="#" data-href="<% out.print(request.getContextPath());%>/admin/delete-dish/?id=<% out.print(dish.getId()); %>" data-toggle="modal" data-target="#confirm-delete" class="delete-user-item" ><span class="glyphicon glyphicon-trash"></span></a></td>
                         <% } %>
                     </tr>
 

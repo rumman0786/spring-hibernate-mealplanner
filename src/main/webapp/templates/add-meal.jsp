@@ -18,7 +18,7 @@
     <div class="row">
         <%@ include file="sidebar.jsp" %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <form class="form-signin" method="post" action="<% out.print(request.getContextPath());%>/add-meal">
+            <form class="form-signin" method="post" action="<% out.print(request.getContextPath());%>/admin/add-meal">
                 <%--<form class="form-signin" method="post" action="/login">--%>
                 <h2 class="form-signin-heading">Add a Meal</h2>
 

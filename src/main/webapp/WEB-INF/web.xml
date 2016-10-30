@@ -27,7 +27,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AddDish</servlet-name>
-        <url-pattern>/add-dish</url-pattern>
+        <url-pattern>/admin/add-dish</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -36,7 +36,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>EditDish</servlet-name>
-        <url-pattern>/edit-dish/*</url-pattern>
+        <url-pattern>/admin/edit-dish/*</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -45,7 +45,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>DeleteDish</servlet-name>
-        <url-pattern>/delete-dish/*</url-pattern>
+        <url-pattern>/admin/delete-dish/*</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -63,7 +63,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AddMeal</servlet-name>
-        <url-pattern>/add-meal</url-pattern>
+        <url-pattern>/admin/add-meal</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -72,7 +72,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>EditMeal</servlet-name>
-        <url-pattern>/edit-meal/*</url-pattern>
+        <url-pattern>/admin/edit-meal/*</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -81,7 +81,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>DeleteMeal</servlet-name>
-        <url-pattern>/delete-meal/*</url-pattern>
+        <url-pattern>/admin/delete-meal/*</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -147,5 +147,15 @@
     <filter-mapping>
         <filter-name>LoginRequiredFilter</filter-name> <!-- mandatory -->
         <url-pattern>/*</url-pattern> <!-- either url-pattern or servlet-name is mandatory -->
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AdminRequiredFilter</filter-name> <!-- mandatory -->
+        <filter-class>net.therap.mealplanner.filters.AdminRequiredFilter</filter-class> <!-- mandatory -->
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AdminRequiredFilter</filter-name> <!-- mandatory -->
+        <url-pattern>/admin/*</url-pattern> <!-- either url-pattern or servlet-name is mandatory -->
     </filter-mapping>
 </web-app>

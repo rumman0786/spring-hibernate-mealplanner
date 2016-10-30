@@ -27,7 +27,7 @@
 
             <% Meal meal = (Meal) request.getAttribute("meal"); %>
 
-            <form class="form-signin" method="post" action="<% out.print(request.getContextPath());%>/edit-meal">
+            <form class="form-signin" method="post" action="<% out.print(request.getContextPath());%>/admin/edit-meal">
                 <%--<form class="form-signin" method="post" action="/login">--%>
                 <h2 class="form-signin-heading">Add a Meal</h2>
 
