@@ -24,9 +24,9 @@ public class LoginServlet extends HttpServlet {
         User user = userDao.findByNamePassword(userName, password);
         if (user != null) {
             HttpSession session = request.getSession(true);
-//            session.setAttribute("currentSessionUser",user);
+            session.setAttribute("user",user);
             session.setAttribute("name", user.getUsername());
-            response.sendRedirect("/idea-jsp-servlet-tomcat-example/user-list");
+            response.sendRedirect(request.getContextPath()+"/user-list");
         } else {
             response.sendRedirect(request.getContextPath() + "/login");
         }

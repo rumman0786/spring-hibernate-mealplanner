@@ -1,6 +1,7 @@
 <%@ page import="net.therap.mealplanner.entity.Dish" %>
 <%@ page import="net.therap.mealplanner.entity.Meal" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="net.therap.mealplanner.entity.User" %>
 <%--
   Created by IntelliJ IDEA.
   User: rumman
@@ -23,8 +24,10 @@
         <%@ include file="sidebar.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <%-- Checks if admin user, shows add option to admin user only--%>
+            <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
             <a href="<% out.print(request.getContextPath());%>/add-meal" class="btn btn-success pull-right">Add Meal</a>
-
+            <% } %>
             <h2 class="sub-header">Meal List</h2>
 
             <div class="table-responsive">
@@ -35,8 +38,11 @@
                         <th>Day</th>
                         <th>Items</th>
                         <th>Type</th>
+                        <%-- Checks if admin user, shows add option to admin user only--%>
+                        <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
                         <th>Edit</th>
                         <th>Delete</th>
+                        <% } %>
                     </tr>
                     </thead>
                     <tbody>
@@ -56,6 +62,8 @@
                             %>
                         </td>
                         <td><% out.print(meal.getMenuType().getCategory()); %></td>
+                        <%-- Checks if admin user, shows add option to admin user only--%>
+                        <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
                         <td>
                             <a href="<% out.print(request.getContextPath());%>/edit-meal/?id=<% out.print(meal.getId()); %>"><span
                                     class="glyphicon glyphicon-edit"></span><a/></td>
@@ -64,6 +72,7 @@
                                data-href="<% out.print(request.getContextPath());%>/delete-meal/?id=<% out.print(meal.getId()); %>"
                                data-toggle="modal" data-target="#confirm-delete" class="delete-user-item"><span
                                 class="glyphicon glyphicon-trash"></span></a></td>
+                        <% } %>
                     </tr>
 
                     <% } %>

@@ -117,7 +117,7 @@ public class User {
         this.isActive = isActive;
     }
 
-    public boolean isSuperuser() {
+    public boolean getIsSuperuser() {
         return isSuperuser;
     }
 

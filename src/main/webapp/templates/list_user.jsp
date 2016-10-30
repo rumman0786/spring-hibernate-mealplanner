@@ -1,5 +1,5 @@
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="net.therap.mealplanner.entity.User" %>
+<%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.
   User: rumman
@@ -23,7 +23,10 @@
         <%@ include file="sidebar.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <%-- Checks if admin user, shows add option to admin user only--%>
+            <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
             <a href="<% out.print(request.getContextPath());%>/add-user" class="btn btn-success pull-right">Add User</a>
+            <% } %>
             <h2 class="sub-header">User List</h2>
 
             <div class="table-responsive">
@@ -33,23 +36,32 @@
                         <th>Username</th>
                         <th>First Name</th>
                         <th>Email</th>
+                        <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
                         <th>Edit</th>
                         <th>Delete</th>
+                        <% } %>
                     </tr>
                     </thead>
                     <tbody>
                     <%
-                    // retrieve your list from the request, with casting
-                    ArrayList<User> users = (ArrayList<User>) request.getAttribute("userList");
-                    // print the information about every dish of the list
-                    for(User user : users ) { %>
+                        // retrieve your list from the request, with casting
+                        ArrayList<User> users = (ArrayList<User>) request.getAttribute("userList");
+                        // print the information about every dish of the list
+                        for (User user : users) { %>
                     <tr>
                         <td><% out.print(user.getUsername()); %></td>
                         <td><% out.print(user.getFirstName()); %></td>
                         <td><% out.print(user.getEmail()); %></td>
-                        <td><a href="<% out.print(request.getContextPath());%>/edit-user/?id=<% out.print(user.getId()); %>"><span class="glyphicon glyphicon-edit"></span><a/></td>
+                        <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
+                        <td>
+                            <a href="<% out.print(request.getContextPath());%>/edit-user/?id=<% out.print(user.getId()); %>"><span
+                                    class="glyphicon glyphicon-edit"></span><a/></td>
                         <%--<td><a href="http://www.google.com"><span class="glyphicon glyphicon-trash"></span><a/></td>--%>
-                        <td><a href="#" data-href="<% out.print(request.getContextPath());%>/delete-user/?id=<% out.print(user.getId()); %>" data-toggle="modal" data-target="#confirm-delete" class="delete-user-item" ><span class="glyphicon glyphicon-trash"></span></a></td>
+                        <td><a href="#"
+                               data-href="<% out.print(request.getContextPath());%>/delete-user/?id=<% out.print(user.getId()); %>"
+                               data-toggle="modal" data-target="#confirm-delete" class="delete-user-item"><span
+                                class="glyphicon glyphicon-trash"></span></a></td>
+                        <% } %>
                     </tr>
 
                     <% } %>
@@ -64,7 +76,8 @@
 <%@ include file="footer.jsp" %>
 
 </body>
-<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -75,7 +88,9 @@
 
             <div class="modal-body">
                 <p>You are about to delete a user, this procedure is irreversible.</p>
+
                 <p>Do you want to proceed?</p>
+
                 <p class="debug-url"></p>
             </div>
 
@@ -88,9 +103,9 @@
 </div>
 
 <script>
-    $('.delete-user-item').on('click', function(e) {
+    $('.delete-user-item').on('click', function (e) {
         var criteria_id = $(this).attr("data-href");
-        $('.btn-ok').attr("href",criteria_id);
+        $('.btn-ok').attr("href", criteria_id);
     });
 </script>
 </html>
