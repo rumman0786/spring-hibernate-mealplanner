@@ -24,7 +24,7 @@ public class AdminRequiredFilter implements Filter {
         String uri = httpServletRequest.getRequestURI();
         boolean isAdmin = false;
         if (httpServletRequest.getSession().getAttribute("user") != null) {
-            User user = (User)httpServletRequest.getSession().getAttribute("user");
+            User user = (User) httpServletRequest.getSession().getAttribute("user");
             //Check admin status of user.
             isAdmin = user.getIsSuperuser();
         }

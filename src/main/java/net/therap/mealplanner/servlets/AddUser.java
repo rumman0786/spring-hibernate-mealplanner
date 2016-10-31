@@ -5,7 +5,6 @@ import net.therap.mealplanner.dao.UserDaoImpl;
 import net.therap.mealplanner.entity.User;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +14,6 @@ import java.io.IOException;
  * @author rumman
  * @since 10/25/16
  */
-@WebServlet(name = "AddUser", urlPatterns = {"/add-user"})
 public class AddUser extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");

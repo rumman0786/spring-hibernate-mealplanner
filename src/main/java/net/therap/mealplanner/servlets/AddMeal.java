@@ -7,11 +7,9 @@ import net.therap.mealplanner.dao.MenuTypeDaoImpl;
 import net.therap.mealplanner.entity.Dish;
 import net.therap.mealplanner.entity.Meal;
 import net.therap.mealplanner.entity.MenuType;
-import net.therap.mealplanner.services.DishManager;
 import net.therap.mealplanner.services.MealManager;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,12 +21,11 @@ import java.util.Set;
  * @author rumman
  * @since 10/25/16
  */
-@WebServlet(name = "AddMeal", urlPatterns = {"/add-meal"})
 public class AddMeal extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("mealname");
         String strMenuType = request.getParameter("menu_type");
-        String [] dishList = request.getParameterValues("dish_list");
+        String[] dishList = request.getParameterValues("dish_list");
         String day = request.getParameter("day");
 
         MenuTypeDaoImpl menuTypeDao = new MenuTypeDaoImpl();
@@ -37,7 +34,7 @@ public class AddMeal extends HttpServlet {
         MealManager mealManager = new MealManager();
         DishDao dishDao = new DishDaoImpl();
         Set<Dish> dishSet = new HashSet<Dish>();
-        for (String d :dishList){
+        for (String d : dishList) {
             Dish dish = dishDao.findById(Integer.parseInt(d));
             dishSet.add(dish);
         }
