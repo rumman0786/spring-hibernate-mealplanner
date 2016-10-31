@@ -19,14 +19,14 @@ import java.io.IOException;
 public class EditUser extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("user_id"));
-        String username = request.getParameter("username");
+//        String username = request.getParameter("username");
         String firstName = request.getParameter("first_name");
         String lastName = request.getParameter("last_name");
         String email = request.getParameter("email");
 
         UserDao userDao = new UserDaoImpl();
         User user = userDao.findById(id);
-        user.setUsername(username);
+//        user.setUsername(username);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
