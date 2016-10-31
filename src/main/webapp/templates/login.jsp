@@ -18,15 +18,15 @@
     <title>Meal Planner- Therap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/idea-jsp-servlet-tomcat-example/statics/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/idea-jsp-servlet-tomcat-example/statics/css/signin.css" rel="stylesheet">
+    <link href="<% out.print(request.getContextPath()); %>/statics/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<% out.print(request.getContextPath()); %>/statics/css/signin.css" rel="stylesheet">
 </head>
 
 <body>
 
 <div class="container">
 
-    <form class="form-signin" method="post" action="/idea-jsp-servlet-tomcat-example/login">
+    <form class="form-signin" method="post" action="<% out.print(request.getContextPath()); %>/login">
     <%--<form class="form-signin" method="post" action="/login">--%>
         <h2 class="form-signin-heading">Please sign in</h2>
 
@@ -37,6 +37,13 @@
         <input type="password" id="inputPassword" class="form-control"  name="password" placeholder="Password" required>
 
         <input class="btn btn-lg btn-primary btn-block" value="Sign in" type="submit"/>
+        <br>
+        <div class="clearfix mobile has-sms">
+            <p class="signup-helper">
+                New to Meal Planner?
+                <a id="login-signup-link" href="<% out.print(request.getContextPath()); %>/add-user">Sign up now »</a>
+            </p>
+        </div>
     </form>
 
 </div> <!-- /container -->

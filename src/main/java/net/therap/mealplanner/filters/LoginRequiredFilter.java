@@ -24,7 +24,7 @@ public class LoginRequiredFilter implements Filter {
         if (httpServletRequest.getSession().getAttribute("name") != null) {
             //User must be logged in
             chain.doFilter(request, response);
-        } else if (uri.contains("login") || uri.contains("statics") || uri.contains("logout")) {
+        } else if (uri.contains("login") || uri.contains("statics") || uri.contains("logout") || uri.contains("add-user")) {
             chain.doFilter(request, response);
         } else {
             ((HttpServletResponse) response).sendRedirect(httpServletRequest.getContextPath() + "/login");
