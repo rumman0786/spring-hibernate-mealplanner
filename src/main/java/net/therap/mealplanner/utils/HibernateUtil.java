@@ -10,12 +10,6 @@ public class HibernateUtil {
     //XML based configuration
     private static SessionFactory sessionFactory;
 
-    //Annotation based configuration
-    private static SessionFactory sessionAnnotationFactory;
-
-    //Property based configuration
-    private static SessionFactory sessionJavaConfigFactory;
-
     private static SessionFactory buildSessionAnnotationFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
@@ -29,8 +23,7 @@ public class HibernateUtil {
             SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 
             return sessionFactory;
-        }
-        catch (Throwable ex) {
+        } catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
@@ -38,8 +31,8 @@ public class HibernateUtil {
     }
 
     public static SessionFactory getSessionAnnotationFactory() {
-        if(sessionAnnotationFactory == null) sessionAnnotationFactory = buildSessionAnnotationFactory();
-        return sessionAnnotationFactory;
+        if (sessionFactory == null) sessionFactory = buildSessionAnnotationFactory();
+        return sessionFactory;
     }
 
 }
