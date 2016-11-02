@@ -7,7 +7,7 @@ import java.util.Set;
  * @author rumman
  * @since 10/16/16
  */
-@Entity()
+@Entity
 @Table(name = "meal")
 public class Meal {
     @Id
@@ -15,23 +15,23 @@ public class Meal {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name",nullable = false, length = 11)
+    @Column(name = "name", nullable = false, length = 11)
     private String name;
 
     // Type of menu this meal is i.e. breakfast of lunch
 
     @ManyToOne
-    @JoinColumn(name = "menu_type_id",nullable = false)
+    @JoinColumn(name = "menu_type_id", nullable = false)
     private MenuType menuType;
 
     // Dishes that belong to this meal
     @ManyToMany(targetEntity = Dish.class, fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
-    @JoinTable(name="meal_dish_map",
-            joinColumns={@JoinColumn(name="meal_id")},
-            inverseJoinColumns={@JoinColumn(name="dish_id")})
+    @JoinTable(name = "meal_dish_map",
+            joinColumns = {@JoinColumn(name = "meal_id")},
+            inverseJoinColumns = {@JoinColumn(name = "dish_id")})
     private Set<Dish> dishSet;
 
-    @Column(name = "day",nullable = false, length = 11)
+    @Column(name = "day", nullable = false, length = 11)
     private String day;
 
     public Meal() {

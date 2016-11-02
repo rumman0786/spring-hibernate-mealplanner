@@ -99,7 +99,6 @@ public class User {
             }
             password = sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            password = password;
             e.printStackTrace();
         }
         return password;

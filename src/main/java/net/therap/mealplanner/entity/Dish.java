@@ -7,10 +7,10 @@ import javax.persistence.*;
  * @since 10/17/16
  */
 @Entity
-@Table(name="dish")
+@Table(name = "dish")
 public class Dish {
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -20,12 +20,6 @@ public class Dish {
     @Column(name = "calories")
     private String calories;
 
-//    @ManyToMany(targetEntity = Meal.class, fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-//    @JoinTable(name="meal_dish_map",
-//            joinColumns={@JoinColumn(name="dish_id")},
-//            inverseJoinColumns={@JoinColumn(name="meal_id")})
-//    private Set<Meal> meals;
-
     public Dish() {
     }
 
@@ -33,12 +27,6 @@ public class Dish {
         this.name = name;
         this.calories = calories;
     }
-
-//    public Dish(String name, String calories, Set<Meal> meals) {
-//        this.name = name;
-//        this.calories = calories;
-//        this.meals = meals;
-//    }
 
     public int getId() {
         return id;
@@ -64,14 +52,6 @@ public class Dish {
         this.calories = calories;
     }
 
-//    public Set<Meal> getMeals() {
-//        return meals;
-//    }
-//
-//    public void setMeals(Set<Meal> meals) {
-//        this.meals = meals;
-//    }
-
     @Override
     public boolean equals(Object object) {
         boolean isEqual = false;
@@ -95,7 +75,6 @@ public class Dish {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", calories='" + calories + '\'' + '}';
-//                ", meals=" + meals +
-//                '}';
     }
+
 }
