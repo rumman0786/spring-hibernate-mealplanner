@@ -16,7 +16,7 @@
     <div class="row">
         <%@ include file="sidebar.jsp" %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <% User user = (User) request.getAttribute("user"); %>
+            <% User user = (User) request.getAttribute("editUser"); %>
 
             <form class="form-signin" method="post" action="<%= request.getContextPath() %>/edit-user">
                 <h2 class="form-signin-heading">Update User Information</h2>
@@ -38,6 +38,14 @@
                 <input type="text" id="last_name" class="form-control" placeholder="Last Name" name="last_name"
                        value="<%= user.getLastName() %>">
                 </div>
+
+                <% User requestUser = ((User) request.getSession(false).getAttribute("user")); %>
+                <% if (requestUser != null && requestUser.getIsSuperuser()) { %>
+                <div class="form-group">
+                    <label>Make Admin</label>
+                    <input type="checkbox" value="admin" name="admin" <% if (user.getIsSuperuser()) {%> checked="checked" <% } %>>
+                </div>
+                <% } %>
 
                 <div class="form-group">
                 <label for="email" class="sr-only">Email</label>

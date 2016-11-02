@@ -1,3 +1,4 @@
+<%@ page import="net.therap.mealplanner.entity.User" %>
 <%--
   Created by IntelliJ IDEA.
   User: rumman
@@ -17,36 +18,47 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <form class="form-signin" method="post" action="<%= request.getContextPath() %>/add-user">
                 <h2 class="form-signin-heading">User Registraion</h2>
+
                 <div class="form-group">
-                <label for="username" class="sr-only">Username</label>
-                <input type="text" id="username" class="form-control" placeholder="Username" name="username" required
-                       autofocus>
+                    <label for="username" class="sr-only">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Username" name="username"
+                           required
+                           autofocus>
                 </div>
 
                 <div class="form-group">
-                <label for="first_name" class="sr-only">First Name</label>
-                <input type="text" id="first_name" class="form-control" placeholder="First Name" name="first_name">
+                    <label for="first_name" class="sr-only">First Name</label>
+                    <input type="text" id="first_name" class="form-control" placeholder="First Name" name="first_name">
                 </div>
 
                 <div class="form-group">
-                <label for="last_name" class="sr-only">Last Name</label>
-                <input type="text" id="last_name" class="form-control" placeholder="Last Name" name="last_name">
+                    <label for="last_name" class="sr-only">Last Name</label>
+                    <input type="text" id="last_name" class="form-control" placeholder="Last Name" name="last_name">
                 </div>
 
                 <div class="form-group">
-                <label for="password" class="sr-only">Password</label>
-                <input type="password" id="password" class="form-control" name="password" placeholder="Password"
-                       required>
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" id="password" class="form-control" name="password" placeholder="Password"
+                           required>
                 </div>
 
                 <%--Add a second password field and match with this--%>
+
+                <% User user = ((User) request.getSession(false).getAttribute("user")); %>
+                <% if (user != null && user.getIsSuperuser()) { %>
                 <div class="form-group">
-                <label for="email" class="sr-only">Email</label>
-                <input type="email" id="email" class="form-control" placeholder="Email" name="email" required autofocus>
+                    <label>Make Admin</label>
+                    <input type="checkbox" value="admin" name="admin">
+                </div>
+                <% } %>
+                <div class="form-group">
+                    <label for="email" class="sr-only">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="Email" name="email" required
+                           autofocus>
                 </div>
 
                 <div class="form-group">
-                <input class="btn btn-lg btn-primary btn-block" value="Save" type="submit"/>
+                    <input class="btn btn-lg btn-primary btn-block" value="Save" type="submit"/>
                 </div>
             </form>
         </div>

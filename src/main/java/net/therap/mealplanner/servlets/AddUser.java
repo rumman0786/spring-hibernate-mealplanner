@@ -21,12 +21,17 @@ public class AddUser extends HttpServlet {
         String lastName = request.getParameter("last_name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String admin = request.getParameter("admin");
+
         User user = new User();
         user.setUsername(username);
         user.setPassword(User.makePassword(password));
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
+        if (admin != null){
+            user.setSuperuser(true);
+        }
         UserDao userDao = new UserDaoImpl();
         boolean status = userDao.insertUser(user);
         if (status) {
