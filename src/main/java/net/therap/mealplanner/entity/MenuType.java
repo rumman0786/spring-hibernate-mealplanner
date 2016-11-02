@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "menu_type", uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 public class MenuType {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true, length = 11)
     private int id;
 

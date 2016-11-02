@@ -40,7 +40,7 @@ public class MenuTypeDaoImpl implements MenuTypeDao {
             session.save(menuType);
             //Commit transaction
             session.getTransaction().commit();
-            System.out.println("MenuType ="+menuType.getCategory());
+            System.out.println("MenuType =" + menuType.getCategory());
             session.close();
 
             //terminate session factory, otherwise program won't end
