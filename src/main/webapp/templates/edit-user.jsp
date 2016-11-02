@@ -18,35 +18,34 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <% User user = (User) request.getAttribute("user"); %>
 
-            <form class="form-signin" method="post" action="<% out.print(request.getContextPath());%>/edit-user">
-                <%--<form class="form-signin" method="post" action="/login">--%>
+            <form class="form-signin" method="post" action="<%= request.getContextPath() %>/edit-user">
                 <h2 class="form-signin-heading">Update User Information</h2>
 
                 <div class="form-group">
                 <label for="username" class="sr-only">Username</label>
                 <input type="text" id="username" class="form-control" placeholder="Username" name="username"
-                       value="<%out.print(user.getUsername());%>" disabled="disabled">
+                       value="<%= user.getUsername() %>" disabled="disabled">
                 </div>
 
                 <div class="form-group">
                 <label for="first_name" class="sr-only">First Name</label>
                 <input type="text" id="first_name" class="form-control" placeholder="First Name" name="first_name"
-                       value="<%out.print(user.getFirstName());%>">
+                       value="<%= user.getFirstName() %>">
                 </div>
 
                 <div class="form-group">
                 <label for="last_name" class="sr-only">Last Name</label>
                 <input type="text" id="last_name" class="form-control" placeholder="Last Name" name="last_name"
-                       value="<%out.print(user.getLastName());%>">
+                       value="<%= user.getLastName() %>">
                 </div>
 
                 <div class="form-group">
                 <label for="email" class="sr-only">Email</label>
                 <input type="email" id="email" class="form-control" placeholder="Email" name="email" required
-                       value="<%out.print(user.getEmail());%>">
+                       value="<%= user.getEmail() %>">
                 </div>
 
-                <input type="hidden" id="user_id" name="user_id" value="<%out.print(user.getId());%>" required>
+                <input type="hidden" id="user_id" name="user_id" value="<%= user.getId() %>" required>
                 <div class="form-group">
                 <input class="btn btn-lg btn-primary btn-block" value="Save" type="submit"/>
                 </div>

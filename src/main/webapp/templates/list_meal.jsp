@@ -1,7 +1,7 @@
 <%@ page import="net.therap.mealplanner.entity.Dish" %>
 <%@ page import="net.therap.mealplanner.entity.Meal" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="net.therap.mealplanner.entity.User" %>
+<%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.
   User: rumman
@@ -26,7 +26,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <%-- Checks if admin user, shows add option to admin user only--%>
             <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-            <a href="<% out.print(request.getContextPath());%>/admin/add-meal" class="btn btn-success pull-right">Add Meal</a>
+            <a href="<%= request.getContextPath() %>/admin/add-meal" class="btn btn-success pull-right">Add Meal</a>
             <% } %>
             <h2 class="sub-header">Meal List</h2>
 
@@ -47,29 +47,27 @@
                     </thead>
                     <tbody>
                     <%
-                        // retrieve your list from the request, with casting
                         ArrayList<Meal> mealList = (ArrayList<Meal>) request.getAttribute("mealList");
-                        // print the information about every dish of the list
                         for (Meal meal : mealList) { %>
                     <tr>
-                        <td><% out.print(meal.getName()); %></td>
-                        <td><% out.print(meal.getDay()); %></td>
-                        <td>
-                            <%
-                                for (Dish dish : meal.getDishSet()) {
-                                    out.print(dish.getName() + " ");
-                                }
-                            %>
+                        <td><%= meal.getName() %>
                         </td>
-                        <td><% out.print(meal.getMenuType().getCategory()); %></td>
+                        <td><%= meal.getDay() %>
+                        </td>
+                        <td>
+                            <% for (Dish dish : meal.getDishSet()) { %>
+                            <%=     dish.getName() + " " %>
+                            <% } %>
+                        </td>
+                        <td><%= meal.getMenuType().getCategory() %>
+                        </td>
                         <%-- Checks if admin user, shows add option to admin user only--%>
                         <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
                         <td>
-                            <a href="<% out.print(request.getContextPath());%>/admin/edit-meal/?id=<% out.print(meal.getId()); %>"><span
+                            <a href="<%= request.getContextPath() %>/admin/edit-meal/?id=<%= meal.getId() %>"><span
                                     class="glyphicon glyphicon-edit"></span><a/></td>
-                        <%--<td><a href="http://www.google.com"><span class="glyphicon glyphicon-trash"></span><a/></td>--%>
                         <td><a href="#"
-                               data-href="<% out.print(request.getContextPath());%>/admin/delete-meal/?id=<% out.print(meal.getId()); %>"
+                               data-href="<%= request.getContextPath() %>/admin/delete-meal/?id=<%= meal.getId() %>"
                                data-toggle="modal" data-target="#confirm-delete" class="delete-user-item"><span
                                 class="glyphicon glyphicon-trash"></span></a></td>
                         <% } %>

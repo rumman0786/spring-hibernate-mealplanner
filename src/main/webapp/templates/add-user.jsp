@@ -15,8 +15,7 @@
     <div class="row">
         <%@ include file="sidebar.jsp" %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <form class="form-signin" method="post" action="<% out.print(request.getContextPath());%>/add-user">
-                <%--<form class="form-signin" method="post" action="/login">--%>
+            <form class="form-signin" method="post" action="<%= request.getContextPath() %>/add-user">
                 <h2 class="form-signin-heading">User Registraion</h2>
                 <div class="form-group">
                 <label for="username" class="sr-only">Username</label>

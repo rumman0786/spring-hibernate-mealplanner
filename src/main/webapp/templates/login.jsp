@@ -11,23 +11,21 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>Meal Planner- Therap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<% out.print(request.getContextPath()); %>/statics/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<% out.print(request.getContextPath()); %>/statics/css/signin.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/statics/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/statics/css/signin.css" rel="stylesheet">
 </head>
 
 <body>
 
 <div class="container">
 
-    <form class="form-signin" method="post" action="<% out.print(request.getContextPath()); %>/login">
-    <%--<form class="form-signin" method="post" action="/login">--%>
+    <form class="form-signin" method="post" action="<%= request.getContextPath() %>/login">
         <h2 class="form-signin-heading">Please sign in</h2>
 
         <label for="username" class="sr-only">Username</label>
@@ -41,7 +39,7 @@
         <div class="clearfix mobile has-sms">
             <p class="signup-helper">
                 New to Meal Planner?
-                <a id="login-signup-link" href="<% out.print(request.getContextPath()); %>/add-user">Sign up now »</a>
+                <a id="login-signup-link" href="<%= request.getContextPath() %>/add-user">Sign up now »</a>
             </p>
         </div>
     </form>

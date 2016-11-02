@@ -25,7 +25,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <%-- Checks if admin user, shows add option to admin user only--%>
             <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-            <a href="<% out.print(request.getContextPath());%>/add-user" class="btn btn-success pull-right">Add User</a>
+            <a href="<%= request.getContextPath() %>/add-user" class="btn btn-success pull-right">Add User</a>
             <% } %>
             <h2 class="sub-header">User List</h2>
 
@@ -44,21 +44,21 @@
                     </thead>
                     <tbody>
                     <%
-                        // retrieve your list from the request, with casting
                         ArrayList<User> users = (ArrayList<User>) request.getAttribute("userList");
-                        // print the information about every dish of the list
                         for (User user : users) { %>
                     <tr>
-                        <td><% out.print(user.getUsername()); %></td>
-                        <td><% out.print(user.getFirstName()); %></td>
-                        <td><% out.print(user.getEmail()); %></td>
+                        <td><%= user.getUsername() %>
+                        </td>
+                        <td><%= user.getFirstName() %>
+                        </td>
+                        <td><%= user.getEmail() %>
+                        </td>
                         <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
                         <td>
-                            <a href="<% out.print(request.getContextPath());%>/edit-user/?id=<% out.print(user.getId()); %>"><span
+                            <a href="<%= request.getContextPath() %>/edit-user/?id=<%= user.getId() %>"><span
                                     class="glyphicon glyphicon-edit"></span><a/></td>
-                        <%--<td><a href="http://www.google.com"><span class="glyphicon glyphicon-trash"></span><a/></td>--%>
                         <td><a href="#"
-                               data-href="<% out.print(request.getContextPath());%>/delete-user/?id=<% out.print(user.getId()); %>"
+                               data-href="<%= request.getContextPath() %>/delete-user/?id=<%= user.getId() %>"
                                data-toggle="modal" data-target="#confirm-delete" class="delete-user-item"><span
                                 class="glyphicon glyphicon-trash"></span></a></td>
                         <% } %>
