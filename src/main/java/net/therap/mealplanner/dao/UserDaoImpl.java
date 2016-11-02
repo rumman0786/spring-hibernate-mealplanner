@@ -2,10 +2,7 @@ package net.therap.mealplanner.dao;
 
 import net.therap.mealplanner.entity.User;
 import net.therap.mealplanner.utils.HibernateUtil;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 
 import java.util.List;
 
@@ -18,10 +15,20 @@ public class UserDaoImpl implements UserDao {
     public List<User> findAll() {
         SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
         Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        List<User> userList = session.createCriteria(User.class).list();
-        tx.commit();
-        session.close();
+        Transaction transaction = null;
+        List<User> userList = null;
+        try {
+            transaction = session.beginTransaction();
+            userList = session.createCriteria(User.class).list();
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return userList;
     }
 
@@ -29,8 +36,20 @@ public class UserDaoImpl implements UserDao {
     public User findById(int userId) {
         SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
         Session session = sessionFactory.openSession();
-        User user = (User) session.get(User.class, userId);
-        session.close();
+        Transaction transaction = null;
+        User user = null;
+        try {
+            transaction = session.beginTransaction();
+            user = (User) session.get(User.class, userId);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return user;
     }
 
@@ -57,44 +76,76 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean insertUser(User user) {
-        List<User> dishList = findAll();
-        if (!dishList.contains(user)) {
-            SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-            Session session = sessionFactory.openSession();
-            Transaction tx = session.beginTransaction();
-            session.save(user);
-            tx.commit();
-            session.close();
-            return true;
+        if (user == null) {
+            return false;
         }
-        return false;
+        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        boolean status = false;
+        try {
+            transaction = session.beginTransaction();
+            session.save(user);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            status = true;
+        } finally {
+            session.close();
+        }
+        return status;
     }
 
     @Override
     public boolean updateUser(User user) {
-        if (user != null) {
-            SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-            Session session = sessionFactory.openSession();
-            Transaction transaction = session.beginTransaction();
+        if (user == null) {
+            return false;
+        }
+        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        boolean status = false;
+        try {
+            transaction = session.beginTransaction();
             session.update(user);
             transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
             session.close();
-            return true;
         }
-        return false;
+        return status;
     }
 
     @Override
     public boolean deleteUser(User user) {
-        if (user != null) {
-            SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-            Session session = sessionFactory.openSession();
-            Transaction tx = session.beginTransaction();
-            session.delete(user);
-            tx.commit();
-            session.close();
-            return true;
+        if (user == null) {
+            return false;
         }
-        return false;
+        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        boolean status = false;
+        try {
+            transaction = session.beginTransaction();
+            session.delete(user);
+            transaction.commit();
+            status = true;
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return status;
     }
+
 }
