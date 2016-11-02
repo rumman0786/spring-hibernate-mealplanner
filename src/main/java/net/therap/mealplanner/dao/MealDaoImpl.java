@@ -2,10 +2,7 @@ package net.therap.mealplanner.dao;
 
 import net.therap.mealplanner.entity.Meal;
 import net.therap.mealplanner.utils.HibernateUtil;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 
 import java.util.List;
 
@@ -14,14 +11,25 @@ import java.util.List;
  * @since 10/16/16
  */
 public class MealDaoImpl implements MealDao {
+
     @Override
     public List<Meal> findAll() {
         SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
         Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        List<Meal> mealList = session.createCriteria(Meal.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-        tx.commit();
-        session.close();
+        Transaction transaction = null;
+        List<Meal> mealList = null;
+        try {
+            transaction = session.beginTransaction();
+            mealList = session.createCriteria(Meal.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return mealList;
     }
 
@@ -29,8 +37,20 @@ public class MealDaoImpl implements MealDao {
     public Meal findById(int mealId) {
         SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
         Session session = sessionFactory.openSession();
-        Meal meal = (Meal) session.get(Meal.class, mealId);
-        session.close();
+        Transaction transaction = null;
+        Meal meal = null;
+        try {
+            transaction = session.beginTransaction();
+            meal = (Meal) session.get(Meal.class, mealId);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return meal;
     }
 
@@ -41,47 +61,68 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public boolean insertMeal(Meal meal) {
-        List<Meal> mealList = findAll();
-        if (!mealList.contains(meal)) {
-            SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-            Session session = sessionFactory.openSession();
-            Transaction tx = session.beginTransaction();
+        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+        Session session = sessionFactory.openSession();
+        boolean status = false;
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
             session.save(meal);
-            tx.commit();
+            transaction.commit();
+            status = true;
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
             session.close();
-            return true;
         }
-        return false;
+        return status;
     }
 
     @Override
     public boolean updateMeal(Meal meal) {
-        List<Meal> mealList = findAll();
-//        if (!mealList.contains(meal)) {
         SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
         Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        session.merge(meal);
-        transaction.commit();
-        session.close();
-        return true;
-//        }
-//        return false;
+        Transaction transaction = null;
+        boolean status = false;
+        try {
+            transaction = session.beginTransaction();
+            session.merge(meal);
+            transaction.commit();
+            status = true;
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return status;
     }
 
     @Override
     public boolean deleteMeal(Meal meal) {
-        List<Meal> mealList = findAll();
-        if (mealList.contains(meal)) {
-            SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-            Session session = sessionFactory.openSession();
-            Transaction tx = session.beginTransaction();
+        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        boolean status = false;
+        try {
+            transaction = session.beginTransaction();
             session.delete(meal);
-            tx.commit();
+            transaction.commit();
+            status = true;
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
             session.close();
-            return true;
         }
-        return false;
+        return status;
     }
 
 }
