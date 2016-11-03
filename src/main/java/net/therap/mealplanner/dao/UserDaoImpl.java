@@ -87,12 +87,12 @@ public class UserDaoImpl implements UserDao {
             transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();
+            status = true;
         } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
-            status = true;
         } finally {
             session.close();
         }
@@ -112,6 +112,7 @@ public class UserDaoImpl implements UserDao {
             transaction = session.beginTransaction();
             session.update(user);
             transaction.commit();
+            status = true;
         } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
