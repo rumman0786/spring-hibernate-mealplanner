@@ -29,6 +29,16 @@
             <% } %>
             <h2 class="sub-header">User List</h2>
 
+            <% if (request.getParameter("failure") != null && request.getParameter("failure").equals("failure")) { %>
+            <div class="alert alert-danger" role="alert">
+                Operation Failed
+            </div>
+            <% } else if (request.getParameter("success") != null && request.getParameter("success").equals("success")) { %>
+            <div class="alert alert-success" role="alert">
+                Operation Successful
+            </div>
+            <% } %>
+
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>

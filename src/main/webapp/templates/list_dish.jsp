@@ -28,15 +28,17 @@
                 <a href="<%= request.getContextPath() %>/admin/add-dish" class="btn btn-success pull-right">Add Dish</a>
                 <% } %>
                 <h2 class="sub-header">Dish List</h2>
-                <% if (request.getParameter("failure") == "failure") { %>
+
+                <% if (request.getParameter("failure") != null && request.getParameter("failure").equals("failure")) { %>
                 <div class="alert alert-danger" role="alert">
                     Operation Failed
                 </div>
-                <% } else if (request.getParameter("success") == "success") { %>
+                <% } else if (request.getParameter("success") != null && request.getParameter("success").equals("success")) { %>
                 <div class="alert alert-success" role="alert">
                     Operation Successful
                 </div>
                 <% } %>
+
                 <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>

@@ -32,15 +32,14 @@ public class EditUser extends HttpServlet {
         } else {
             user.setSuperuser(false);
         }
-        boolean status = userDao.updateUser(user);
 
-//        if (status) {
-//            System.out.println("Dish Added");
-//        } else {
-//            System.out.println("Dish with that name already exists, Try Again");
-//        }
-        //TODO  Either send a get param or post to indicate success or failure to add a dish
-//        request.setAttribute("dishList", dishList);
+        boolean status = userDao.insertUser(user);
+        if (status) {
+            response.sendRedirect(request.getContextPath() + "/user-list?success=success");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/user-list?failure=failure");
+        }
+
         response.sendRedirect(request.getContextPath() + "/user-list");
     }
 

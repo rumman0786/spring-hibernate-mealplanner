@@ -19,14 +19,14 @@ public class AddDish extends HttpServlet {
         String calories = request.getParameter("calories");
         Dish dish = new Dish(name, calories);
         DishManager dishManager = new DishManager();
+
         boolean status = dishManager.addDish(dish);
         if (status) {
             response.sendRedirect(request.getContextPath() + "/dish-list?success=success");
         } else {
             response.sendRedirect(request.getContextPath() + "/dish-list?failure=failure");
         }
-        //TODO  Either send a get param or post to indicate success or failure to add a dish
-//        request.setAttribute("dishList", dishList);
+
         response.sendRedirect(request.getContextPath() + "/dish-list");
     }
 

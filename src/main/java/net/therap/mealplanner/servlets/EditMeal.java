@@ -45,13 +45,12 @@ public class EditMeal extends HttpServlet {
 
         MealManager mealManager = new MealManager();
         boolean status = mealManager.updateMealInMenu(meal);
-//        if (status) {
-//            System.out.println("Dish Added");
-//        } else {
-//            System.out.println("Dish with that name already exists, Try Again");
-//        }
-        //TODO  Either send a get param or post to indicate success or failure to add a dish
-//        request.setAttribute("dishList", dishList);
+        if (status) {
+            response.sendRedirect(request.getContextPath() + "/meal-list?success=success");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/meal-list?failure=failure");
+        }
+
         response.sendRedirect(request.getContextPath() + "/meal-list");
     }
 

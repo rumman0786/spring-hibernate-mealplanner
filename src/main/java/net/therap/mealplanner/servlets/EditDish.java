@@ -26,13 +26,13 @@ public class EditDish extends HttpServlet {
         dish.setCalories(calories);
         DishManager dishManager = new DishManager();
         boolean status = dishManager.updateDish(dish);
-//        if (status) {
-//            System.out.println("Dish Added");
-//        } else {
-//            System.out.println("Dish with that name already exists, Try Again");
-//        }
-        //TODO  Either send a get param or post to indicate success or failure to add a dish
-//        request.setAttribute("dishList", dishList);
+
+        if (status) {
+            response.sendRedirect(request.getContextPath() + "/dish-list?success=success");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/dish-list?failure=failure");
+        }
+
         response.sendRedirect(request.getContextPath() + "/dish-list");
     }
 

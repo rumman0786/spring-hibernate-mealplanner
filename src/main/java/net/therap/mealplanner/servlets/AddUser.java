@@ -33,14 +33,14 @@ public class AddUser extends HttpServlet {
             user.setSuperuser(true);
         }
         UserDao userDao = new UserDaoImpl();
+
         boolean status = userDao.insertUser(user);
         if (status) {
-            System.out.println("Dish Added");
+            response.sendRedirect(request.getContextPath() + "/user-list?success=success");
         } else {
-            System.out.println("Dish with that name already exists, Try Again");
+            response.sendRedirect(request.getContextPath() + "/user-list?failure=failure");
         }
-        //TODO  Either send a get param or post to indicate success or failure to add a dish
-//        request.setAttribute("dishList", dishList);
+
         response.sendRedirect(request.getContextPath() + "/user-list");
     }
 
