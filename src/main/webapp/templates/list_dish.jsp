@@ -25,11 +25,19 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <%-- Checks if admin user, shows add option to admin user only--%>
             <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-            <a href="<%= request.getContextPath() %>/admin/add-dish" class="btn btn-success pull-right">Add Dish</a>
-            <% } %>
-            <h2 class="sub-header">Dish List</h2>
-
-            <div class="table-responsive">
+                <a href="<%= request.getContextPath() %>/admin/add-dish" class="btn btn-success pull-right">Add Dish</a>
+                <% } %>
+                <h2 class="sub-header">Dish List</h2>
+                <% if (request.getParameter("failure") == "failure") { %>
+                <div class="alert alert-danger" role="alert">
+                    Operation Failed
+                </div>
+                <% } else if (request.getParameter("success") == "success") { %>
+                <div class="alert alert-success" role="alert">
+                    Operation Successful
+                </div>
+                <% } %>
+                <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
