@@ -17,8 +17,8 @@
     <title>Meal Planner- Therap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<%= request.getContextPath() %>/statics/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<%= request.getContextPath() %>/statics/css/signin.css" rel="stylesheet">
+    <link href="/statics/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/statics/css/signin.css" rel="stylesheet">
 </head>
 
 <body>
