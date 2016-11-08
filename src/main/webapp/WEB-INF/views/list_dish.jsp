@@ -52,20 +52,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <%
-                    ArrayList<Dish> dishList = (ArrayList<Dish>) request.getAttribute("dishList");
-                    for(Dish dish : dishList ) { %>
+                    <c:forEach var="dish" items="${dishList}">
                     <tr>
-                        <td><%= dish.getName() %></td>
-                        <td><%= dish.getCalories() %></td>
+                        <td>${dish.name}</td>
+                        <td>${dish.calories}</td>
                         <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-                        <td><a href="<%= request.getContextPath() %>/admin/edit-dish/?id=<%= dish.getId() %>"><span class="glyphicon glyphicon-edit"></span></a></td>
-                        <td><a href="#" data-href="<%= request.getContextPath() %>/admin/delete-dish/?id=<%= dish.getId() %>" data-toggle="modal" data-target="#confirm-delete" class="delete-user-item" ><span class="glyphicon glyphicon-trash"></span></a></td>
+                        <td><a href="<%= request.getContextPath() %>/admin/edit-dish/?id=${dish.id}"><span class="glyphicon glyphicon-edit"></span></a></td>
+                        <td><a href="#" data-href="<%= request.getContextPath() %>/admin/delete-dish/?id=${dish.id}" data-toggle="modal" data-target="#confirm-delete" class="delete-user-item" ><span class="glyphicon glyphicon-trash"></span></a></td>
                         <% } %>
                     </tr>
 
-                    <% } %>
 
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>

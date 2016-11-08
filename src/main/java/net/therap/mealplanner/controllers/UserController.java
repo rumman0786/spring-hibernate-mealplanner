@@ -31,7 +31,7 @@ public class UserController {
 
     @RequestMapping(value = "/user-list", method = RequestMethod.GET)
     public String showUserList(HttpServletRequest request) {
-        UserDao userDao = new UserDaoImpl();
+//        UserDao userDao = new UserDaoImpl();
         List<User> userList = userDao.findAll();
         request.setAttribute("userList", userList);
         request.setAttribute("page", "user");
@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add-user", method = RequestMethod.GET)
-    public String showAddUserPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String showAddUserPage(HttpServletRequest request) {
         request.setAttribute("page", "user");
         return "add-user";
     }

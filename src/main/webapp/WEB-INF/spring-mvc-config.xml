@@ -21,5 +21,20 @@
 	<mvc:resources mapping="/statics/**" location="/statics/" />
 	 
 	<mvc:annotation-driven />
- 
+
+    <mvc:interceptors>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="net.therap.mealplanner.interceptors.LoginRequiredInterceptor" />
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/**" />
+            <bean class="net.therap.mealplanner.interceptors.AdminRequiredInterceptor" />
+        </mvc:interceptor>
+
+
+    </mvc:interceptors>
+
 </beans>
