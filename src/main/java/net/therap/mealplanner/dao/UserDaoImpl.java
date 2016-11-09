@@ -3,7 +3,7 @@ package net.therap.mealplanner.dao;
 import net.therap.mealplanner.entity.User;
 import net.therap.mealplanner.utils.HibernateUtil;
 import org.hibernate.*;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * @author rumman
  * @since 10/26/16
  */
-@Service
+@Repository
 public class UserDaoImpl implements UserDao {
     @Override
     public List<User> findAll() {

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -19,8 +18,7 @@ import javax.servlet.http.HttpSession;
 public class AuthenticationController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String handleLogin(HttpServletRequest request, HttpServletResponse response) {
-//        @RequestParam String username, @RequestParam String password,
+    public String handleLogin(HttpServletRequest request) {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         UserDao userDao = new UserDaoImpl();

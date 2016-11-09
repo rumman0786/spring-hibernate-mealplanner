@@ -1,7 +1,6 @@
-<%@ page import="net.therap.mealplanner.entity.Meal" %>
-<%@ page import="net.therap.mealplanner.entity.MenuType" %>
-<%@ page import="java.util.List" %>
 <%@ page import="net.therap.mealplanner.entity.Dish" %>
+<%@ page import="java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%--
   Created by IntelliJ IDEA.
   User: rumman
@@ -18,33 +17,25 @@
 <div class="container-fluid">
     <div class="row">
         <%@ include file="sidebar.jsp" %>
-
-
-
-
-
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-            <% Meal meal = (Meal) request.getAttribute("meal"); %>
-
             <form class="form-signin" method="post" action="<% out.print(request.getContextPath());%>/admin/edit-meal">
-                <%--<form class="form-signin" method="post" action="/login">--%>
                 <h2 class="form-signin-heading">Add a Meal</h2>
 
                 <div class="form-group">
                     <label for="mealname" class="sr-only">Meal Name</label>
                     <input type="text" id="mealname" class="form-control" placeholder="Meal Name" name="mealname"
-                           value="<%out.print(meal.getName());%>" required autofocus>
+                           value="${meal.name}" required autofocus>
                 </div>
 
-                <% List<MenuType> menuTypeList = (List<MenuType>) request.getAttribute("menuTypes"); %>
                 <div class="form-group">
                     <label for="menu_type" class="sr-only">Menu Type</label>
                     <select class="form-control" id="menu_type" name="menu_type" required>
                         <option value="">Select a Menu Type</option>
-                        <% for (MenuType menuType : menuTypeList) { %>
-                        <option value="<% out.print(menuType.getId());%>" <% if (meal.getMenuType().equals(menuType) ) { %> selected="selected" <% } %> > <% out.print(menuType.getCategory()); %></option>
-                        <% } %>
+                        <c:forEach var="menuType" items="${menuTypes}">
+                            <option value="${menuType.id}" <c:if
+                                    test="${menuType.id == meal.menuType.id}"> selected="selected" </c:if> >${menuType.category}</option>
+                        </c:forEach>
                     </select>
                 </div>
 
@@ -52,13 +43,27 @@
                     <label for="day" class="sr-only">Day of Week</label>
                     <select class="form-control" id="day" name="day" required>
                         <option value="">Select a Day</option>
-                        <option value="SATURDAY" <% if (meal.getDay().equals("SATURDAY") ) { %> selected="selected" <% } %> >SATURDAY</option>
-                        <option value="SUNDAY" <% if (meal.getDay().equals("SUNDAY") ) { %> selected="selected" <% } %> >SUNDAY</option>
-                        <option value="MONDAY" <% if (meal.getDay().equals("MONDAY") ) { %> selected="selected" <% } %> >MONDAY</option>
-                        <option value="TUESDAY" <% if (meal.getDay().equals("TUESDAY") ) { %> selected="selected" <% } %> >TUESDAY</option>
-                        <option value="WEDNESDAY" <% if (meal.getDay().equals("WEDNESDAY") ) { %> selected="selected" <% } %> >WEDNESDAY</option>
-                        <option value="THURSDAY" <% if (meal.getDay().equals("THURSDAY") ) { %> selected="selected" <% } %> >THURSDAY</option>
-                        <option value="FRIDAY" <% if (meal.getDay().equals("FRIDAY") ) { %> selected="selected" <% } %> >FRIDAY</option>
+                        <option value="SATURDAY" <c:if test="${meal.day == 'SATURDAY'}"> selected="selected" </c:if> >
+                            SATURDAY
+                        </option>
+                        <option value="SUNDAY" <c:if test="${meal.day == 'SUNDAY'}"> selected="selected" </c:if> >
+                            SUNDAY
+                        </option>
+                        <option value="MONDAY" <c:if test="${meal.day == 'MONDAY'}"> selected="selected" </c:if> >
+                            MONDAY
+                        </option>
+                        <option value="TUESDAY" <c:if test="${meal.day == 'TUESDAY'}"> selected="selected" </c:if> >
+                            TUESDAY
+                        </option>
+                        <option value="WEDNESDAY" <c:if test="${meal.day == 'WEDNESDAY'}"> selected="selected" </c:if> >
+                            WEDNESDAY
+                        </option>
+                        <option value="THURSDAY" <c:if test="${meal.day == 'THURSDAY'}"> selected="selected" </c:if> >
+                            THURSDAY
+                        </option>
+                        <option value="FRIDAY" <c:if test="${meal.day == 'FRIDAY'}"> selected="selected" </c:if> >
+                            FRIDAY
+                        </option>
                     </select>
                 </div>
 
@@ -66,13 +71,14 @@
                 <div class="form-group">
                     <label for="dish_list" class="sr-only">Dishes</label>
                     <select class="form-control" id="dish_list" name="dish_list" multiple required>
-                        <% for (Dish dish : dishList) { %>
-                        <option value="<% out.print(dish.getId());%>" <% if (meal.getDishSet().contains(dish) ) { %> selected="selected" <% } %> ><% out.print(dish.getName()); %></option>
-                        <% } %>
+                        <c:forEach var="dish" items="${dishLish}">
+                            <option value="${dish.id}" <c:if
+                                    test="${fn:contains(meal.dishSet,dish)}"> selected="selected" </c:if> >${dish.name}</option>
+                        </c:forEach>
                     </select>
                 </div>
 
-                <input type="hidden" id="meal_id" name="meal_id" value="<%out.print(meal.getId());%>" required>
+                <input type="hidden" id="meal_id" name="meal_id" value="${meal.id}" required>
 
                 <input class="btn btn-lg btn-primary btn-block" value="Save" type="submit"/>
             </form>
@@ -80,7 +86,8 @@
 
         </div>
     </div>
-</div> <!-- /container -->
+</div>
+<!-- /container -->
 <%@ include file="footer.jsp" %>
 </body>
 </html>

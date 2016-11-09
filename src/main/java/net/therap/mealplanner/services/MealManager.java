@@ -3,11 +3,13 @@ package net.therap.mealplanner.services;
 import net.therap.mealplanner.dao.MealDao;
 import net.therap.mealplanner.dao.MealDaoImpl;
 import net.therap.mealplanner.entity.Meal;
+import org.springframework.stereotype.Service;
 
 /**
  * @author rumman
  * @since 10/16/16
  */
+@Service
 public class MealManager {
 
     public boolean addMealToMenu(Meal meal) {

@@ -3,7 +3,6 @@ package net.therap.mealplanner.interceptors;
 import net.therap.mealplanner.entity.User;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

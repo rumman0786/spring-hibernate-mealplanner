@@ -1,5 +1,3 @@
-<%@ page import="net.therap.mealplanner.entity.Dish" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="net.therap.mealplanner.entity.User" %>
 <%--
   Created by IntelliJ IDEA.
@@ -25,21 +23,21 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <%-- Checks if admin user, shows add option to admin user only--%>
             <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-                <a href="<%= request.getContextPath() %>/admin/add-dish" class="btn btn-success pull-right">Add Dish</a>
-                <% } %>
-                <h2 class="sub-header">Dish List</h2>
+            <a href="<%= request.getContextPath() %>/admin/add-dish" class="btn btn-success pull-right">Add Dish</a>
+            <% } %>
+            <h2 class="sub-header">Dish List</h2>
 
-                <% if (request.getParameter("failure") != null && request.getParameter("failure").equals("failure")) { %>
-                <div class="alert alert-danger" role="alert">
-                    Operation Failed
-                </div>
-                <% } else if (request.getParameter("success") != null && request.getParameter("success").equals("success")) { %>
-                <div class="alert alert-success" role="alert">
-                    Operation Successful
-                </div>
-                <% } %>
+            <% if (request.getParameter("failure") != null && request.getParameter("failure").equals("failure")) { %>
+            <div class="alert alert-danger" role="alert">
+                Operation Failed
+            </div>
+            <% } else if (request.getParameter("success") != null && request.getParameter("success").equals("success")) { %>
+            <div class="alert alert-success" role="alert">
+                Operation Successful
+            </div>
+            <% } %>
 
-                <div class="table-responsive">
+            <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -53,16 +51,17 @@
                     </thead>
                     <tbody>
                     <c:forEach var="dish" items="${dishList}">
-                    <tr>
-                        <td>${dish.name}</td>
-                        <td>${dish.calories}</td>
-                        <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-                        <td><a href="<%= request.getContextPath() %>/admin/edit-dish/?id=${dish.id}"><span class="glyphicon glyphicon-edit"></span></a></td>
-                        <td><a href="#" data-href="<%= request.getContextPath() %>/admin/delete-dish/?id=${dish.id}" data-toggle="modal" data-target="#confirm-delete" class="delete-user-item" ><span class="glyphicon glyphicon-trash"></span></a></td>
-                        <% } %>
-                    </tr>
-
-
+                        <tr>
+                            <td>${dish.name}</td>
+                            <td>${dish.calories}</td>
+                            <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
+                            <td><a href="<%= request.getContextPath() %>/admin/edit-dish/?id=${dish.id}"><span
+                                    class="glyphicon glyphicon-edit"></span></a></td>
+                            <td><a href="#" data-href="<%= request.getContextPath() %>/admin/delete-dish/?id=${dish.id}"
+                                   data-toggle="modal" data-target="#confirm-delete" class="delete-user-item"><span
+                                    class="glyphicon glyphicon-trash"></span></a></td>
+                            <% } %>
+                        </tr>
                     </c:forEach>
                     </tbody>
                 </table>
@@ -74,7 +73,8 @@
 <%@ include file="footer.jsp" %>
 
 </body>
-<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -85,7 +85,9 @@
 
             <div class="modal-body">
                 <p>You are about to delete a dish, this procedure is irreversible.</p>
+
                 <p>Do you want to proceed?</p>
+
                 <p class="debug-url"></p>
             </div>
 
@@ -98,9 +100,9 @@
 </div>
 
 <script>
-    $('.delete-user-item').on('click', function(e) {
+    $('.delete-user-item').on('click', function (e) {
         var criteria_id = $(this).attr("data-href");
-        $('.btn-ok').attr("href",criteria_id);
+        $('.btn-ok').attr("href", criteria_id);
     });
 </script>
 </html>

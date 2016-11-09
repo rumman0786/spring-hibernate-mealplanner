@@ -1,7 +1,6 @@
 package net.therap.mealplanner.controllers;
 
 import net.therap.mealplanner.dao.UserDao;
-import net.therap.mealplanner.dao.UserDaoImpl;
 import net.therap.mealplanner.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,14 +23,8 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
-
-//    public UserController(UserDaoImpl userDao) {
-//        this.userDao = userDao;
-//    }
-
     @RequestMapping(value = "/user-list", method = RequestMethod.GET)
     public String showUserList(HttpServletRequest request) {
-//        UserDao userDao = new UserDaoImpl();
         List<User> userList = userDao.findAll();
         request.setAttribute("userList", userList);
         request.setAttribute("page", "user");
@@ -45,7 +38,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add-user", method = RequestMethod.POST)
-    public String handleAddUser(HttpServletRequest request, HttpServletResponse response) {
+    public String handleAddUser(HttpServletRequest request) {
         String username = request.getParameter("username");
         String firstName = request.getParameter("first_name");
         String lastName = request.getParameter("last_name");
@@ -64,7 +57,6 @@ public class UserController {
         }
 
         String redirectUrl = "/user-list";
-//        UserDao userDao = new UserDaoImpl();
         boolean status = userDao.insertUser(user);
         if (status) {
             redirectUrl += "?success=success";
@@ -78,11 +70,9 @@ public class UserController {
     @RequestMapping(value = "/edit-user", method = RequestMethod.GET)
     public String showEditUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-//        UserDao userDao = new UserDaoImpl();
         User editUser = userDao.findById(id);
         request.setAttribute("editUser", editUser);
         request.setAttribute("page", "user");
-//        request.getRequestDispatcher("/templates/edit-user.jsp").forward(request, response);
         return "edit-user";
     }
 
@@ -94,12 +84,11 @@ public class UserController {
         String email = request.getParameter("email");
         String admin = request.getParameter("admin");
 
-//        UserDao userDao = new UserDaoImpl();
         User user = userDao.findById(id);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
-        if (admin != null){
+        if (admin != null) {
             user.setSuperuser(true);
         } else {
             user.setSuperuser(false);
@@ -112,13 +101,11 @@ public class UserController {
         } else {
             redirectUrl += "?failure=failure";
         }
-
         return "redirect:" + redirectUrl;
     }
 
     @RequestMapping(value = "/delete-user", method = RequestMethod.GET)
     public String deleteUser(HttpServletRequest request) {
-//        UserDao userDao = new UserDaoImpl();
         int id = Integer.parseInt(request.getParameter("id"));
         User user = userDao.findById(id);
         boolean status = userDao.deleteUser(user);

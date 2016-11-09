@@ -1,6 +1,5 @@
 package net.therap.mealplanner.interceptors;
 
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +14,6 @@ public class LoginRequiredInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse response, Object handler) throws Exception {
         String uri = httpServletRequest.getRequestURI();
-        System.out.println("########");
-        System.out.println(uri);
-        System.out.println("########");
         if (httpServletRequest.getSession().getAttribute("name") != null) {
             //User must be logged in
             return true;
