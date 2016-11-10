@@ -13,14 +13,20 @@ public class LoginRequiredInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse response, Object handler) throws Exception {
+
         String uri = httpServletRequest.getRequestURI();
+
         if (httpServletRequest.getSession().getAttribute("name") != null) {
             //User must be logged in
             return true;
-        } else if (uri.contains("login") || uri.contains("statics") || uri.contains("logout") || uri.contains("add-user")) {
+        }
+
+        if (uri.contains("login") || uri.contains("statics") || uri.contains("logout") || uri.contains("add-user")) {
             return true;
         }
+
         response.sendRedirect(httpServletRequest.getContextPath() + "/login");
+
         return false;
     }
 
