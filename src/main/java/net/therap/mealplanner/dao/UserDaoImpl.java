@@ -13,6 +13,7 @@ import java.util.List;
  */
 @Repository
 public class UserDaoImpl implements UserDao {
+
     @Override
     public List<User> findAll() {
         SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
