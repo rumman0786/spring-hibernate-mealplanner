@@ -1,3 +1,5 @@
+<%@ page import="net.therap.mealplanner.entity.Dish" %>
+<%@ page import="net.therap.mealplanner.entity.Meal" %>
 <%@ page import="net.therap.mealplanner.entity.User" %>
 <%@ page import="java.util.ArrayList" %>
 <%--
@@ -11,23 +13,22 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<%@ include file="header.jsp" %>
+<%@ include file="../header.jsp" %>
 
 <body>
-
-<%@ include file="topbar.jsp" %>
+<%@ include file="../topbar.jsp" %>
 
 <div class="container-fluid">
     <div class="row">
 
-        <%@ include file="sidebar.jsp" %>
+        <%@ include file="../sidebar.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <%-- Checks if admin user, shows add option to admin user only--%>
             <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-            <a href="<%= request.getContextPath() %>/add-user" class="btn btn-success pull-right">Add User</a>
+            <a href="<%= request.getContextPath() %>/admin/add-meal" class="btn btn-success pull-right">Add Meal</a>
             <% } %>
-            <h2 class="sub-header">User List</h2>
+            <h2 class="sub-header">Meal List</h2>
 
             <% if (request.getParameter("failure") != null && request.getParameter("failure").equals("failure")) { %>
             <div class="alert alert-danger" role="alert">
@@ -43,9 +44,11 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Username</th>
-                        <th>First Name</th>
-                        <th>Email</th>
+                        <th>Name</th>
+                        <th>Day</th>
+                        <th>Items</th>
+                        <th>Type</th>
+                        <%-- Checks if admin user, shows add option to admin user only--%>
                         <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
                         <th>Edit</th>
                         <th>Delete</th>
@@ -54,21 +57,27 @@
                     </thead>
                     <tbody>
                     <%
-                        ArrayList<User> users = (ArrayList<User>) request.getAttribute("userList");
-                        for (User user : users) { %>
+                        ArrayList<Meal> mealList = (ArrayList<Meal>) request.getAttribute("mealList");
+                        for (Meal meal : mealList) { %>
                     <tr>
-                        <td><%= user.getUsername() %>
+                        <td><%= meal.getName() %>
                         </td>
-                        <td><%= user.getFirstName() %>
+                        <td><%= meal.getDay() %>
                         </td>
-                        <td><%= user.getEmail() %>
+                        <td>
+                            <% for (Dish dish : meal.getDishSet()) { %>
+                            <%=     dish.getName() + " " %>
+                            <% } %>
                         </td>
+                        <td><%= meal.getMenuType().getCategory() %>
+                        </td>
+                        <%-- Checks if admin user, shows add option to admin user only--%>
                         <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
                         <td>
-                            <a href="<%= request.getContextPath() %>/edit-user/?id=<%= user.getId() %>"><span
+                            <a href="<%= request.getContextPath() %>/admin/edit-meal/?id=<%= meal.getId() %>"><span
                                     class="glyphicon glyphicon-edit"></span><a/></td>
                         <td><a href="#"
-                               data-href="<%= request.getContextPath() %>/delete-user/?id=<%= user.getId() %>"
+                               data-href="<%= request.getContextPath() %>/admin/delete-meal/?id=<%= meal.getId() %>"
                                data-toggle="modal" data-target="#confirm-delete" class="delete-user-item"><span
                                 class="glyphicon glyphicon-trash"></span></a></td>
                         <% } %>
@@ -83,7 +92,7 @@
     </div>
 </div>
 
-<%@ include file="footer.jsp" %>
+<%@ include file="../footer.jsp" %>
 
 </body>
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -97,7 +106,7 @@
             </div>
 
             <div class="modal-body">
-                <p>You are about to delete a user, this procedure is irreversible.</p>
+                <p>You are about to delete a meal, this procedure is irreversible.</p>
 
                 <p>Do you want to proceed?</p>
 

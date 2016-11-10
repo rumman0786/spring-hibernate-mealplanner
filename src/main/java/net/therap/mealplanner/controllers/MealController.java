@@ -37,7 +37,7 @@ public class MealController {
     @RequestMapping(value = "/meal-list", method = RequestMethod.GET)
     public ModelAndView showMealList() {
         List<Meal> mealList = mealDao.findAll();
-        ModelAndView model = new ModelAndView("list_meal");
+        ModelAndView model = new ModelAndView("meal/list_meal");
         model.addObject("page", "meal");
         model.addObject("mealList", mealList);
         return model;
@@ -45,7 +45,7 @@ public class MealController {
 
     @RequestMapping(value = "/admin/add-meal", method = RequestMethod.GET)
     public ModelAndView showAddDish() {
-        ModelAndView model = new ModelAndView("add-meal");
+        ModelAndView model = new ModelAndView("meal/add-meal");
         model.addObject("page", "meal");
         model.addObject("menuTypes", menuTypeDao.findAll());
         model.addObject("dishLish", dishDao.findAll());
@@ -86,7 +86,7 @@ public class MealController {
     @RequestMapping(value = "/admin/edit-meal", method = RequestMethod.GET)
     public ModelAndView showEditDish(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
-        ModelAndView model = new ModelAndView("edit-meal");
+        ModelAndView model = new ModelAndView("meal/edit-meal");
         Meal meal = mealDao.findById(id);
         model.addObject("meal", meal);
         model.addObject("page", "meal");

@@ -28,13 +28,13 @@ public class UserController {
         List<User> userList = userDao.findAll();
         request.setAttribute("userList", userList);
         request.setAttribute("page", "user");
-        return "list_user";
+        return "user/list_user";
     }
 
     @RequestMapping(value = "/add-user", method = RequestMethod.GET)
     public String showAddUserPage(HttpServletRequest request) {
         request.setAttribute("page", "user");
-        return "add-user";
+        return "user/add-user";
     }
 
     @RequestMapping(value = "/add-user", method = RequestMethod.POST)
@@ -73,7 +73,7 @@ public class UserController {
         User editUser = userDao.findById(id);
         request.setAttribute("editUser", editUser);
         request.setAttribute("page", "user");
-        return "edit-user";
+        return "user/edit-user";
     }
 
     @RequestMapping(value = "/edit-user", method = RequestMethod.POST)

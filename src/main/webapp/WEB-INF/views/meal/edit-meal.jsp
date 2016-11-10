@@ -10,13 +10,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
-<%@ include file="header.jsp" %>
+<%@ include file="../header.jsp" %>
 
 <body>
-<%@ include file="topbar.jsp" %>
+<%@ include file="../topbar.jsp" %>
 <div class="container-fluid">
     <div class="row">
-        <%@ include file="sidebar.jsp" %>
+        <%@ include file="../sidebar.jsp" %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
             <form class="form-signin" method="post" action="<% out.print(request.getContextPath());%>/admin/edit-meal">
@@ -88,6 +88,6 @@
     </div>
 </div>
 <!-- /container -->
-<%@ include file="footer.jsp" %>
+<%@ include file="../footer.jsp" %>
 </body>
 </html>
