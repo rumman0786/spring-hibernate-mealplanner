@@ -16,7 +16,7 @@
     <div class="row">
         <%@ include file="../sidebar.jsp" %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <form:form class="form-signin" action="/admin/add-dish" method="post"
+            <form:form class="form-signin" action="${pageContext.request.contextPath}/admin/add-dish" method="post"
                        modelAttribute="dish">
                 <h2 class="form-signin-heading">Add a Dish</h2>
 
