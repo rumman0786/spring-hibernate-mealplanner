@@ -16,7 +16,7 @@
     <div class="row">
         <%@ include file="../sidebar.jsp" %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <form class="form-signin" method="post" action="/admin/add-meal">
+            <form class="form-signin" method="post" action="${pageContext.request.contextPath}/admin/add-meal">
                 <h2 class="form-signin-heading">Add a Meal</h2>
 
                 <div class="form-group">
@@ -60,7 +60,9 @@
                 </div>
 
                 <input class="btn btn-lg btn-primary btn-block" value="Save" type="submit"/>
+                
             </form>
+
         </div>
     </div>
 </div>

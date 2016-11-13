@@ -1,7 +1,3 @@
-<%@ page import="net.therap.mealplanner.entity.Dish" %>
-<%@ page import="net.therap.mealplanner.entity.Meal" %>
-<%@ page import="net.therap.mealplanner.entity.User" %>
-<%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.
   User: rumman
@@ -25,20 +21,29 @@
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <%-- Checks if admin user, shows add option to admin user only--%>
-            <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-            <a href="<%= request.getContextPath() %>/admin/add-meal" class="btn btn-success pull-right">Add Meal</a>
-            <% } %>
+            <c:if test="${user.isSuperuser}">
+                <a href="${pageContext.request.contextPath}/admin/add-meal" class="btn btn-success pull-right">Add
+                    Meal</a>
+            </c:if>
+                
             <h2 class="sub-header">Meal List</h2>
 
-            <% if (request.getParameter("failure") != null && request.getParameter("failure").equals("failure")) { %>
-            <div class="alert alert-danger" role="alert">
-                Operation Failed
-            </div>
-            <% } else if (request.getParameter("success") != null && request.getParameter("success").equals("success")) { %>
-            <div class="alert alert-success" role="alert">
-                Operation Successful
-            </div>
-            <% } %>
+            <c:choose>
+
+                <c:when test="${param['failure'] == 'failure'}">
+                    <div class="alert alert-danger" role="alert">
+                        Operation Failed
+                    </div>
+                </c:when>
+
+                <c:when test="${param['success']== 'success'}">
+                    <div class="alert alert-success" role="alert">
+                        Operation Successful
+                    </div>
+                </c:when>
+
+            </c:choose>
+
 
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -49,41 +54,38 @@
                         <th>Items</th>
                         <th>Type</th>
                         <%-- Checks if admin user, shows add option to admin user only--%>
-                        <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                        <% } %>
+                        <c:if test="${user.isSuperuser}">
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </c:if>
                     </tr>
                     </thead>
                     <tbody>
-                    <%
-                        ArrayList<Meal> mealList = (ArrayList<Meal>) request.getAttribute("mealList");
-                        for (Meal meal : mealList) { %>
-                    <tr>
-                        <td><%= meal.getName() %>
-                        </td>
-                        <td><%= meal.getDay() %>
-                        </td>
-                        <td>
-                            <% for (Dish dish : meal.getDishSet()) { %>
-                            <%=     dish.getName() + " " %>
-                            <% } %>
-                        </td>
-                        <td><%= meal.getMenuType().getCategory() %>
-                        </td>
-                        <%-- Checks if admin user, shows add option to admin user only--%>
-                        <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-                        <td>
-                            <a href="<%= request.getContextPath() %>/admin/edit-meal/?id=<%= meal.getId() %>"><span
-                                    class="glyphicon glyphicon-edit"></span><a/></td>
-                        <td><a href="#"
-                               data-href="<%= request.getContextPath() %>/admin/delete-meal/?id=<%= meal.getId() %>"
-                               data-toggle="modal" data-target="#confirm-delete" class="delete-user-item"><span
-                                class="glyphicon glyphicon-trash"></span></a></td>
-                        <% } %>
-                    </tr>
+                    <c:forEach var="meal" items="${mealList}">
+                        <tr>
+                            <td>${meal.name}</td>
+                            <td>${meal.day}</td>
+                            <td>
+                                <c:forEach items="${meal.dishSet}" var="dish">
+                                    <c:out value="${dish.name}"/>
+                                </c:forEach>
+                            </td>
+                            <td>${meal.menuType.category}</td>
 
-                    <% } %>
+                                <%-- Checks if admin user, shows add option to admin user only--%>
+                            <c:if test="${user.isSuperuser}">
+                                <td>
+                                    <a href="${pageContext.request.contextPath}/admin/edit-meal/?id=${meal.id}"><span
+                                            class="glyphicon glyphicon-edit"></span><a/></td>
+                                <td><a href="#"
+                                       data-href="${pageContext.request.contextPath}/admin/delete-meal/?id=${meal.id}"
+                                       data-toggle="modal" data-target="#confirm-delete" class="delete-user-item"><span
+                                        class="glyphicon glyphicon-trash"></span></a></td>
+                            </c:if>
+
+                        </tr>
+
+                    </c:forEach>
 
                     </tbody>
                 </table>
