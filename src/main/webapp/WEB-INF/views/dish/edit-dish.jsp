@@ -18,7 +18,6 @@
     <div class="row">
         <%@ include file="../sidebar.jsp" %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <% Dish dish = (Dish) request.getAttribute("dish"); %>
 
             <form:form class="form-signin" method="post" action="/admin/edit-dish" modelAttribute="dish">
                 <h2 class="form-signin-heading">Add a Dish</h2>
@@ -41,6 +40,7 @@
                     <input class="btn btn-lg btn-primary btn-block" value="Save" type="submit"/>
                 </div>
             </form:form>
+
         </div>
     </div>
 </div>

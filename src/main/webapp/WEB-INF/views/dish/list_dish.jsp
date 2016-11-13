@@ -1,4 +1,3 @@
-<%@ page import="net.therap.mealplanner.entity.User" %>
 <%--
   Created by IntelliJ IDEA.
   User: rumman
@@ -21,21 +20,29 @@
         <%@ include file="../sidebar.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <%-- Checks if admin user, shows add option to admin user only--%>
-            <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-            <a href="<%= request.getContextPath() %>/admin/add-dish" class="btn btn-success pull-right">Add Dish</a>
-            <% } %>
-            <h2 class="sub-header">Dish List</h2>
 
-            <% if (request.getParameter("failure") != null && request.getParameter("failure").equals("failure")) { %>
-            <div class="alert alert-danger" role="alert">
-                Operation Failed
-            </div>
-            <% } else if (request.getParameter("success") != null && request.getParameter("success").equals("success")) { %>
-            <div class="alert alert-success" role="alert">
-                Operation Successful
-            </div>
-            <% } %>
+            <%-- Checks if admin user, shows add option to admin user only--%>
+            <c:if test="${user.isSuperuser}">
+                <a href="${pageContext.request.contextPath}/admin/add-dish" class="btn btn-success pull-right">Add
+                    Dish</a>
+            </c:if>
+
+            <h2 class="sub-header">Dish List</h2>
+            <c:choose>
+
+                <c:when test="${param['failure'] == 'failure'}">
+                    <div class="alert alert-danger" role="alert">
+                        Operation Failed
+                    </div>
+                </c:when>
+
+                <c:when test="${param['success']== 'success'}">
+                    <div class="alert alert-success" role="alert">
+                        Operation Successful
+                    </div>
+                </c:when>
+
+            </c:choose>
 
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -43,26 +50,34 @@
                     <tr>
                         <th>Name</th>
                         <th>Calories</th>
-                        <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                        <% } %>
+
+                        <c:if test="${user.isSuperuser}">
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </c:if>
+
                     </tr>
                     </thead>
                     <tbody>
+
                     <c:forEach var="dish" items="${dishList}">
                         <tr>
                             <td>${dish.name}</td>
                             <td>${dish.calories}</td>
-                            <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-                            <td><a href="<%= request.getContextPath() %>/admin/edit-dish/?id=${dish.id}"><span
-                                    class="glyphicon glyphicon-edit"></span></a></td>
-                            <td><a href="#" data-href="<%= request.getContextPath() %>/admin/delete-dish/?id=${dish.id}"
-                                   data-toggle="modal" data-target="#confirm-delete" class="delete-user-item"><span
-                                    class="glyphicon glyphicon-trash"></span></a></td>
-                            <% } %>
+
+                            <c:if test="${user.isSuperuser}">
+                                <td><a href="${pageContext.request.contextPath}/admin/edit-dish/?id=${dish.id}"><span
+                                        class="glyphicon glyphicon-edit"></span></a></td>
+                                <td><a href="#"
+                                       data-href="${pageContext.request.contextPath}/admin/delete-dish/?id=${dish.id}"
+                                       data-toggle="modal" data-target="#confirm-delete"
+                                       class="delete-user-item"><span
+                                        class="glyphicon glyphicon-trash"></span></a></td>
+                            </c:if>
+
                         </tr>
                     </c:forEach>
+
                     </tbody>
                 </table>
             </div>
