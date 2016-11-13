@@ -18,7 +18,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <% User user = (User) request.getAttribute("editUser"); %>
 
-            <form class="form-signin" method="post" action="<%= request.getContextPath() %>/edit-user">
+            <form class="form-signin" method="post" action="${pageContext.request.contextPath}/edit-user">
                 <h2 class="form-signin-heading">Update User Information</h2>
 
                 <div class="form-group">
@@ -39,13 +39,12 @@
                        value="<%= user.getLastName() %>">
                 </div>
 
-                <% User requestUser = ((User) request.getSession(false).getAttribute("user")); %>
-                <% if (requestUser != null && requestUser.getIsSuperuser()) { %>
+                <c:if test="${user.isSuperuser}">
                 <div class="form-group">
                     <label>Make Admin</label>
                     <input type="checkbox" value="admin" name="admin" <% if (user.getIsSuperuser()) {%> checked="checked" <% } %>>
                 </div>
-                <% } %>
+                </c:if>
 
                 <div class="form-group">
                 <label for="email" class="sr-only">Email</label>

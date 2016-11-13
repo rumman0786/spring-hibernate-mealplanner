@@ -1,4 +1,3 @@
-<%@ page import="net.therap.mealplanner.entity.User" %>
 <%--
   Created by IntelliJ IDEA.
   User: rumman
@@ -16,7 +15,7 @@
     <div class="row">
         <%@ include file="../sidebar.jsp" %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <form class="form-signin" method="post" action="<%= request.getContextPath() %>/add-user">
+            <form class="form-signin" method="post" action="${pageContext.request.contextPath}/add-user">
                 <h2 class="form-signin-heading">User Registraion</h2>
 
                 <div class="form-group">
@@ -44,13 +43,12 @@
 
                 <%--Add a second password field and match with this--%>
 
-                <% User user = ((User) request.getSession(false).getAttribute("user")); %>
-                <% if (user != null && user.getIsSuperuser()) { %>
-                <div class="form-group">
-                    <label>Make Admin</label>
-                    <input type="checkbox" value="admin" name="admin">
-                </div>
-                <% } %>
+                <c:if test="${user.isSuperuser}">
+                    <div class="form-group">
+                        <label>Make Admin</label>
+                        <input type="checkbox" value="admin" name="admin">
+                    </div>
+                </c:if>
                 <div class="form-group">
                     <label for="email" class="sr-only">Email</label>
                     <input type="email" id="email" class="form-control" placeholder="Email" name="email" required
@@ -61,6 +59,7 @@
                     <input class="btn btn-lg btn-primary btn-block" value="Save" type="submit"/>
                 </div>
             </form>
+
         </div>
     </div>
 </div>

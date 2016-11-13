@@ -1,5 +1,3 @@
-<%@ page import="net.therap.mealplanner.entity.User" %>
-<%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.
   User: rumman
@@ -23,21 +21,30 @@
         <%@ include file="../sidebar.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
             <%-- Checks if admin user, shows add option to admin user only--%>
-            <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-            <a href="<%= request.getContextPath() %>/add-user" class="btn btn-success pull-right">Add User</a>
-            <% } %>
+            <c:if test="${user.isSuperuser}">
+                <a href="${pageContext.request.contextPath}/add-user" class="btn btn-success pull-right">Add User</a>
+            </c:if>
+
             <h2 class="sub-header">User List</h2>
 
-            <% if (request.getParameter("failure") != null && request.getParameter("failure").equals("failure")) { %>
-            <div class="alert alert-danger" role="alert">
-                Operation Failed
-            </div>
-            <% } else if (request.getParameter("success") != null && request.getParameter("success").equals("success")) { %>
-            <div class="alert alert-success" role="alert">
-                Operation Successful
-            </div>
-            <% } %>
+            <c:choose>
+
+                <c:when test="${param['failure'] == 'failure'}">
+                    <div class="alert alert-danger" role="alert">
+                        Operation Failed
+                    </div>
+                </c:when>
+
+                <c:when test="${param['success']== 'success'}">
+                    <div class="alert alert-success" role="alert">
+                        Operation Successful
+                    </div>
+                </c:when>
+
+            </c:choose>
+
 
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -46,35 +53,33 @@
                         <th>Username</th>
                         <th>First Name</th>
                         <th>Email</th>
-                        <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                        <% } %>
+
+                        <c:if test="${user.isSuperuser}">
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </c:if>
+
                     </tr>
                     </thead>
                     <tbody>
-                    <%
-                        ArrayList<User> users = (ArrayList<User>) request.getAttribute("userList");
-                        for (User user : users) { %>
-                    <tr>
-                        <td><%= user.getUsername() %>
-                        </td>
-                        <td><%= user.getFirstName() %>
-                        </td>
-                        <td><%= user.getEmail() %>
-                        </td>
-                        <% if (((User) request.getSession(false).getAttribute("user")).getIsSuperuser()) { %>
-                        <td>
-                            <a href="<%= request.getContextPath() %>/edit-user/?id=<%= user.getId() %>"><span
-                                    class="glyphicon glyphicon-edit"></span><a/></td>
-                        <td><a href="#"
-                               data-href="<%= request.getContextPath() %>/delete-user/?id=<%= user.getId() %>"
-                               data-toggle="modal" data-target="#confirm-delete" class="delete-user-item"><span
-                                class="glyphicon glyphicon-trash"></span></a></td>
-                        <% } %>
-                    </tr>
+                    <c:forEach items="${userList}" var="user">
+                        <tr>
+                            <td>${user.username}</td>
+                            <td>${user.firstName}</td>
+                            <td>${user.email}</td>
 
-                    <% } %>
+                            <c:if test="${user.isSuperuser}">
+                                <td>
+                                    <a href="${pageContext.request.contextPath}/edit-user/?id=${user.id}"><span
+                                            class="glyphicon glyphicon-edit"></span><a/></td>
+                                <td><a href="#"
+                                       data-href="${pageContext.request.contextPath}/delete-user/?id=${user.id}"
+                                       data-toggle="modal" data-target="#confirm-delete" class="delete-user-item"><span
+                                        class="glyphicon glyphicon-trash"></span></a></td>
+                            </c:if>
+
+                        </tr>
+                    </c:forEach>
 
                     </tbody>
                 </table>
