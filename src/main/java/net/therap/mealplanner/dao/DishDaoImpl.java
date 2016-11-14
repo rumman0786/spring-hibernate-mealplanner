@@ -8,6 +8,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -16,6 +18,9 @@ import java.util.List;
  */
 @Repository
 public class DishDaoImpl implements DishDao {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<Dish> findAll() {
@@ -64,26 +69,32 @@ public class DishDaoImpl implements DishDao {
         return null;
     }
 
+//    @Override
+//    public boolean insertDish(Dish dish) {
+//        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+//        Session session = sessionFactory.openSession();
+//        Transaction transaction = null;
+//        boolean status = false;
+//        try {
+//            transaction = session.beginTransaction();
+//            session.save(dish);
+//            transaction.commit();
+//            status = true;
+//        } catch (HibernateException e) {
+//            if (transaction != null) {
+//                transaction.rollback();
+//            }
+//            e.printStackTrace();
+//        } finally {
+//            session.close();
+//        }
+//        return status;
+//    }
+
     @Override
     public boolean insertDish(Dish dish) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        boolean status = false;
-        try {
-            transaction = session.beginTransaction();
-            session.save(dish);
-            transaction.commit();
-            status = true;
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return status;
+        entityManager.persist(dish);
+        return true;
     }
 
     @Override
