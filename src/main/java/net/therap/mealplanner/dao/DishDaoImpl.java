@@ -40,7 +40,8 @@ public class DishDaoImpl implements DishDao {
 
     @Override
     public boolean deleteDish(Dish dish) {
-        entityManager.remove(entityManager.contains(dish) ? dish : entityManager.merge(dish));
+        Dish attachedDish = entityManager.getReference(Dish.class, dish.getId());
+        entityManager.remove(attachedDish);
         return true;
     }
 
