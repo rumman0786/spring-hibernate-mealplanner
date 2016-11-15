@@ -1,11 +1,6 @@
 package net.therap.mealplanner.dao;
 
 import net.therap.mealplanner.entity.Dish;
-import net.therap.mealplanner.utils.HibernateUtil;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -24,72 +19,18 @@ public class DishDaoImpl implements DishDao {
 
     @Override
     public List<Dish> findAll() {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        List<Dish> dishList = null;
-        try {
-            transaction = session.beginTransaction();
-            dishList = session.createCriteria(Dish.class).list();
-            transaction.commit();
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return dishList;
+        return (List<Dish>) entityManager.createQuery("from Dish").getResultList();
     }
 
     @Override
     public Dish findById(int dishId) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        Dish dish = null;
-        try {
-            transaction = session.beginTransaction();
-            dish = (Dish) session.get(Dish.class, dishId);
-            transaction.commit();
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return dish;
+        return (Dish) entityManager.find(Dish.class, dishId);
     }
 
     @Override
     public List<Dish> findByName(String dishName) {
         return null;
     }
-
-//    @Override
-//    public boolean insertDish(Dish dish) {
-//        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-//        Session session = sessionFactory.openSession();
-//        Transaction transaction = null;
-//        boolean status = false;
-//        try {
-//            transaction = session.beginTransaction();
-//            session.save(dish);
-//            transaction.commit();
-//            status = true;
-//        } catch (HibernateException e) {
-//            if (transaction != null) {
-//                transaction.rollback();
-//            }
-//            e.printStackTrace();
-//        } finally {
-//            session.close();
-//        }
-//        return status;
-//    }
 
     @Override
     public boolean insertDish(Dish dish) {
@@ -99,45 +40,13 @@ public class DishDaoImpl implements DishDao {
 
     @Override
     public boolean deleteDish(Dish dish) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        boolean status = false;
-        try {
-            transaction = session.beginTransaction();
-            session.delete(dish);
-            transaction.commit();
-            status = true;
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return status;
+        entityManager.remove(entityManager.contains(dish) ? dish : entityManager.merge(dish));
+        return true;
     }
 
     @Override
     public boolean updateDish(Dish dish) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        boolean status = false;
-        try {
-            transaction = session.beginTransaction();
-            session.update(dish);
-            transaction.commit();
-            status = true;
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return status;
+        entityManager.merge(dish);
+        return true;
     }
 }
