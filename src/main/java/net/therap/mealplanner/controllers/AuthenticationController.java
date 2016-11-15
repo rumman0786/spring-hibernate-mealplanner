@@ -3,6 +3,7 @@ package net.therap.mealplanner.controllers;
 import net.therap.mealplanner.dao.UserDao;
 import net.therap.mealplanner.dao.UserDaoImpl;
 import net.therap.mealplanner.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,11 +18,13 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class AuthenticationController {
 
+    @Autowired
+    UserDao userDao;
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String handleLogin(HttpServletRequest request) {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        UserDao userDao = new UserDaoImpl();
         User user = userDao.findByNamePassword(username, password);
         String redirectUrl = "/";
         if (user != null) {
