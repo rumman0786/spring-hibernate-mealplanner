@@ -19,19 +19,16 @@ public class DishManager {
 
     @Transactional
     public boolean addDish(Dish dish) {
-//        DishDao dishDao = new DishDaoImpl();
         return dishDao.insertDish(dish);
     }
 
     @Transactional
     public boolean updateDish(Dish dish) {
-//        DishDao dishDao = new DishDaoImpl();
         return dishDao.updateDish(dish);
     }
 
     @Transactional
     public boolean deleteDish(Dish dish) {
-//        DishDao dishDao = new DishDaoImpl();
         return dishDao.deleteDish(dish);
     }
 

@@ -24,7 +24,7 @@ public class DishDaoImpl implements DishDao {
 
     @Override
     public Dish findById(int dishId) {
-        return (Dish) entityManager.find(Dish.class, dishId);
+        return entityManager.find(Dish.class, dishId);
     }
 
     @Override
