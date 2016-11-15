@@ -2,6 +2,7 @@ package net.therap.mealplanner.dao;
 
 import net.therap.mealplanner.entity.Dish;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,8 +24,10 @@ public class DishDaoImpl implements DishDao {
     }
 
     @Override
+    @Transactional
     public Dish findById(int dishId) {
         return entityManager.find(Dish.class, dishId);
+
     }
 
     @Override
