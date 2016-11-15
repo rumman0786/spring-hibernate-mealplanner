@@ -25,6 +25,7 @@ import java.util.Set;
  */
 @Controller
 public class MealController {
+
     @Autowired
     private DishDao dishDao;
     @Autowired
@@ -59,13 +60,8 @@ public class MealController {
         String strMenuType = request.getParameter("menu_type");
         String[] dishList = request.getParameterValues("dish_list");
         String day = request.getParameter("day");
-        System.out.println(name);
-        System.out.println(strMenuType);
-        System.out.println(dishList);
-        System.out.println(day);
         MenuType menuType = menuTypeDao.getMenuType(Integer.parseInt(strMenuType));
         Meal meal = new Meal(menuType, name, day);
-        DishDao dishDao = new DishDaoImpl();
         Set<Dish> dishSet = new HashSet<Dish>();
         for (String d : dishList) {
             Dish dish = dishDao.findById(Integer.parseInt(d));

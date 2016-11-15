@@ -1,11 +1,16 @@
 package net.therap.mealplanner.dao;
 
+import net.therap.mealplanner.entity.Dish;
 import net.therap.mealplanner.entity.Meal;
 import net.therap.mealplanner.utils.HibernateUtil;
 import org.hibernate.*;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author rumman
@@ -14,46 +19,17 @@ import java.util.List;
 @Repository
 public class MealDaoImpl implements MealDao {
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Override
     public List<Meal> findAll() {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        List<Meal> mealList = null;
-        try {
-            transaction = session.beginTransaction();
-            mealList = session.createCriteria(Meal.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-            transaction.commit();
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return mealList;
+        return (List<Meal>) entityManager.createQuery("from Meal").getResultList();
     }
 
     @Override
     public Meal findById(int mealId) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        Meal meal = null;
-        try {
-            transaction = session.beginTransaction();
-            meal = (Meal) session.get(Meal.class, mealId);
-            transaction.commit();
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return meal;
+        return entityManager.find(Meal.class, mealId);
     }
 
     @Override
@@ -63,68 +39,26 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public boolean insertMeal(Meal meal) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-        Session session = sessionFactory.openSession();
-        boolean status = false;
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            session.save(meal);
-            transaction.commit();
-            status = true;
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
+        Set<Dish> newDishSet = new HashSet<Dish>();
+        for (Dish dish: meal.getDishSet()){
+            newDishSet.add(entityManager.getReference(Dish.class, dish.getId()));
         }
-        return status;
+        meal.setDishSet(newDishSet);
+        entityManager.persist(meal);
+        return true;
     }
 
     @Override
     public boolean updateMeal(Meal meal) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        boolean status = false;
-        try {
-            transaction = session.beginTransaction();
-            session.merge(meal);
-            transaction.commit();
-            status = true;
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return status;
+        entityManager.merge(meal);
+        return true;
     }
 
     @Override
     public boolean deleteMeal(Meal meal) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = null;
-        boolean status = false;
-        try {
-            transaction = session.beginTransaction();
-            session.delete(meal);
-            transaction.commit();
-            status = true;
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return status;
+        Meal attachedMeal = entityManager.getReference(Meal.class, meal.getId());
+        entityManager.remove(attachedMeal );
+        return true;
     }
 
 }
