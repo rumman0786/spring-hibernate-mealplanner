@@ -62,18 +62,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${userList}" var="user">
+                    <c:forEach items="${userList}" var="loopUser">
                         <tr>
-                            <td>${user.username}</td>
-                            <td>${user.firstName}</td>
-                            <td>${user.email}</td>
+                            <td>${loopUser.username}</td>
+                            <td>${loopUser.firstName}</td>
+                            <td>${loopUser.email}</td>
 
                             <c:if test="${user.isSuperuser}">
                                 <td>
-                                    <a href="${pageContext.request.contextPath}/edit-user/?id=${user.id}"><span
+                                    <a href="${pageContext.request.contextPath}/edit-user/?id=${loopUser.id}"><span
                                             class="glyphicon glyphicon-edit"></span><a/></td>
                                 <td><a href="#"
-                                       data-href="${pageContext.request.contextPath}/delete-user/?id=${user.id}"
+                                       data-href="${pageContext.request.contextPath}/delete-user/?id=${loopUser.id}"
                                        data-toggle="modal" data-target="#confirm-delete" class="delete-user-item"><span
                                         class="glyphicon glyphicon-trash"></span></a></td>
                             </c:if>
