@@ -19,6 +19,7 @@ public class DishDaoImpl implements DishDao {
     private EntityManager entityManager;
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Dish> findAll() {
         return (List<Dish>) entityManager.createQuery("from Dish").getResultList();
     }

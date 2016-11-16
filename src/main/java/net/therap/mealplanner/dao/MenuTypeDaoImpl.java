@@ -17,6 +17,7 @@ public class MenuTypeDaoImpl implements MenuTypeDao {
     String[] menuTypes = {"BREAKFAST", "LUNCH"};
 
     @Override
+    @SuppressWarnings("unchecked")
     public void initMenuType() {
         SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
         Session session = sessionFactory.openSession();
@@ -45,6 +46,7 @@ public class MenuTypeDaoImpl implements MenuTypeDao {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<MenuType> findAll() {
         SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
         Session session = sessionFactory.openSession();

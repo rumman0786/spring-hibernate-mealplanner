@@ -23,6 +23,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     @Transactional
+    @SuppressWarnings("unchecked")
     public List<User> findAll() {
         return (List<User>) entityManager.createQuery("from User").getResultList();
     }
@@ -41,6 +42,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     @Transactional
+    @SuppressWarnings("unchecked")
     public User findByNamePassword(String username, String password) {
         User user = null;
         List<User> list = (List<User>) entityManager.createQuery("Select u from User u where u.username = :userName and u.password =:passWord")
