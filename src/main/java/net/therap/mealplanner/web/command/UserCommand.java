@@ -90,7 +90,7 @@ public class UserCommand implements Serializable {
         return isSuperuser;
     }
 
-    public void setSuperuser(boolean isSuperuser) {
+    public void setIsSuperuser(boolean isSuperuser) {
         this.isSuperuser = isSuperuser;
     }
 }

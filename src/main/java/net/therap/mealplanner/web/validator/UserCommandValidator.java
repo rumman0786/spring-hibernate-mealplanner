@@ -32,7 +32,7 @@ public class UserCommandValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "confirmPassword.required");
 
 
-        if (command.getPassword() == command.getConfirmPassword()) {
+        if (!command.getPassword().equals(command.getConfirmPassword() ) ) {
             errors.rejectValue("password", "bothPassword", new Object[]{"'Both Passwords'"}, "");
         }
     }
