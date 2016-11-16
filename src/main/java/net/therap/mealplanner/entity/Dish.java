@@ -1,6 +1,7 @@
 package net.therap.mealplanner.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author rumman
@@ -8,7 +9,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "dish")
-public class Dish {
+public class Dish implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,8 +58,8 @@ public class Dish {
 
     @Override
     public boolean equals(Object object) {
-        boolean isEqual = false;
 
+        boolean isEqual = false;
         if (object != null && object instanceof Dish) {
             int dishId = ((Dish) object).getId();
             isEqual = this.id == dishId;
@@ -71,10 +75,10 @@ public class Dish {
 
     @Override
     public String toString() {
+
         return "Dish{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", calories='" + calories + '\'' + '}';
     }
-
 }

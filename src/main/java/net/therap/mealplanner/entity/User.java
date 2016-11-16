@@ -1,6 +1,7 @@
 package net.therap.mealplanner.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -10,7 +11,10 @@ import java.security.NoSuchAlgorithmException;
  */
 @Entity
 @Table(name = "auth_user")
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,6 +92,7 @@ public class User {
     }
 
     public static String makePassword(String password) {
+
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("SHA-256");
@@ -101,6 +106,7 @@ public class User {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+
         return password;
     }
 
@@ -134,6 +140,7 @@ public class User {
 
     @Override
     public String toString() {
+
         return "User[" +
                 "username='" + username + '\'' +
                 ", email='" + email + '\'' +
