@@ -9,13 +9,14 @@ import java.util.List;
  * @since 10/26/16
  */
 public interface UserDao {
-    public List<User> findAll();
 
-    public User findById(int userId);
+    List<User> findAll();
 
-    public List<User> findByName(String username);
+    User findById(int userId);
 
-    public User findByNamePassword(String username, String password);
+    List<User> findByName(String username);
+
+    User findByNamePassword(String username, String password);
 
     boolean insertUser(User user);
 

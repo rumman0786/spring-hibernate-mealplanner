@@ -9,7 +9,8 @@ import java.util.List;
  */
 public interface MenuTypeDao {
 
-    public void initMenuType();
+    void initMenuType();
 
-    public List<MenuType> findAll();
+    List<MenuType> findAll();
+
 }

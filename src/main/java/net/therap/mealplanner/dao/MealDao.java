@@ -9,6 +9,7 @@ import java.util.List;
  * @since 10/16/16
  */
 public interface MealDao {
+
     List<Meal> findAll();
 
     Meal findById(int mealId);
