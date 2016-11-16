@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd ">
  
-	<context:component-scan base-package="net.therap.mealplanner.controllers" />
+	<context:component-scan base-package="net.therap.mealplanner.web.controller" />
  
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
@@ -18,7 +18,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
  
-	<mvc:resources mapping="/statics/**" location="/statics/" />
+	<mvc:resources mapping="/statics/**" location="/WEB-INF/statics/" />
 	 
 	<mvc:annotation-driven />
 
@@ -26,12 +26,12 @@
 
         <mvc:interceptor>
             <mvc:mapping path="/**" />
-            <bean class="net.therap.mealplanner.interceptors.LoginRequiredInterceptor" />
+            <bean class="net.therap.mealplanner.web.interceptor.LoginRequiredInterceptor" />
         </mvc:interceptor>
 
         <mvc:interceptor>
             <mvc:mapping path="/admin/**" />
-            <bean class="net.therap.mealplanner.interceptors.AdminRequiredInterceptor" />
+            <bean class="net.therap.mealplanner.web.interceptor.AdminRequiredInterceptor" />
         </mvc:interceptor>
 
 

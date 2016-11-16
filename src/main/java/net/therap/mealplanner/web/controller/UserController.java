@@ -1,4 +1,4 @@
-package net.therap.mealplanner.controllers;
+package net.therap.mealplanner.web.controller;
 
 import net.therap.mealplanner.dao.UserDao;
 import net.therap.mealplanner.entity.User;

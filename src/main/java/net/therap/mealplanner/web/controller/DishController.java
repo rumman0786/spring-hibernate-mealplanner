@@ -1,8 +1,8 @@
-package net.therap.mealplanner.controllers;
+package net.therap.mealplanner.web.controller;
 
 import net.therap.mealplanner.dao.DishDao;
 import net.therap.mealplanner.entity.Dish;
-import net.therap.mealplanner.services.DishManager;
+import net.therap.mealplanner.service.DishManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;

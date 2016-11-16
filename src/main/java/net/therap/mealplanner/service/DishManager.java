@@ -1,7 +1,6 @@
-package net.therap.mealplanner.services;
+package net.therap.mealplanner.service;
 
 import net.therap.mealplanner.dao.DishDao;
-import net.therap.mealplanner.dao.DishDaoImpl;
 import net.therap.mealplanner.entity.Dish;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

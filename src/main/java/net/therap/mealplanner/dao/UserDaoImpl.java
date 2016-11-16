@@ -1,9 +1,6 @@
 package net.therap.mealplanner.dao;
 
-import net.therap.mealplanner.entity.Dish;
 import net.therap.mealplanner.entity.User;
-import net.therap.mealplanner.utils.HibernateUtil;
-import org.hibernate.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

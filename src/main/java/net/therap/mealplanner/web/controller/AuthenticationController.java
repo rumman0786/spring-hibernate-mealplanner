@@ -1,7 +1,6 @@
-package net.therap.mealplanner.controllers;
+package net.therap.mealplanner.web.controller;
 
 import net.therap.mealplanner.dao.UserDao;
-import net.therap.mealplanner.dao.UserDaoImpl;
 import net.therap.mealplanner.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

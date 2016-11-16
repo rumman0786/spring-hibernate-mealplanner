@@ -1,7 +1,7 @@
 package net.therap.mealplanner.dao;
 
 import net.therap.mealplanner.entity.MenuType;
-import net.therap.mealplanner.utils.HibernateUtil;
+import net.therap.mealplanner.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

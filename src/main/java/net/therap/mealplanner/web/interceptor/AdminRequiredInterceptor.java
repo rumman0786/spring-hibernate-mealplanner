@@ -1,4 +1,4 @@
-package net.therap.mealplanner.interceptors;
+package net.therap.mealplanner.web.interceptor;
 
 import net.therap.mealplanner.entity.User;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

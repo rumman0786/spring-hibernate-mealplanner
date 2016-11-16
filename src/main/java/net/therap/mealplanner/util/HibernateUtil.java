@@ -1,4 +1,4 @@
-package net.therap.mealplanner.utils;
+package net.therap.mealplanner.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
