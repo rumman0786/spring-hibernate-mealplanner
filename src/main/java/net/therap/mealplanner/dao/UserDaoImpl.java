@@ -32,12 +32,11 @@ public class UserDaoImpl implements UserDao {
     @Transactional
     public User findById(int userId) {
         return entityManager.find(User.class, userId);
-
     }
 
     @Override
     public List<User> findByName(String username) {
-        return null;
+        throw new UnsupportedOperationException("Feature not implemented");
     }
 
     @Override
@@ -49,9 +48,11 @@ public class UserDaoImpl implements UserDao {
                 .setParameter("userName", username)
                 .setParameter("passWord", User.makePassword(password))
                 .getResultList();
+
         if (list.size() > 0) {
             user = list.get(0);
         }
+
         return user;
     }
 
@@ -59,6 +60,7 @@ public class UserDaoImpl implements UserDao {
     @Transactional
     public boolean insertUser(User user) {
         entityManager.persist(user);
+
         return true;
     }
 
@@ -66,6 +68,7 @@ public class UserDaoImpl implements UserDao {
     @Transactional
     public boolean updateUser(User user) {
         entityManager.merge(user);
+
         return true;
     }
 
@@ -74,7 +77,7 @@ public class UserDaoImpl implements UserDao {
     public boolean deleteUser(User user) {
         User attachedUser = entityManager.getReference(User.class, user.getId());
         entityManager.remove(attachedUser);
+
         return true;
     }
-
 }

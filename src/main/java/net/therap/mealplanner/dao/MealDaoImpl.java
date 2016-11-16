@@ -35,23 +35,27 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public List<Meal> findByName(String mealName) {
-        return null;
+        throw new UnsupportedOperationException("Feature not implemented");
     }
 
     @Override
     public boolean insertMeal(Meal meal) {
         Set<Dish> newDishSet = new HashSet<Dish>();
+
         for (Dish dish: meal.getDishSet()){
             newDishSet.add(entityManager.getReference(Dish.class, dish.getId()));
         }
+
         meal.setDishSet(newDishSet);
         entityManager.persist(meal);
+
         return true;
     }
 
     @Override
     public boolean updateMeal(Meal meal) {
         entityManager.merge(meal);
+
         return true;
     }
 
@@ -59,7 +63,7 @@ public class MealDaoImpl implements MealDao {
     public boolean deleteMeal(Meal meal) {
         Meal attachedMeal = entityManager.getReference(Meal.class, meal.getId());
         entityManager.remove(attachedMeal );
+
         return true;
     }
-
 }

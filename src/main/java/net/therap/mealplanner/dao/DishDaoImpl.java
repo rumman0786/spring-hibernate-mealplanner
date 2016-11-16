@@ -28,17 +28,17 @@ public class DishDaoImpl implements DishDao {
     @Transactional
     public Dish findById(int dishId) {
         return entityManager.find(Dish.class, dishId);
-
     }
 
     @Override
     public List<Dish> findByName(String dishName) {
-        return null;
+        throw new UnsupportedOperationException("Feature not implemented");
     }
 
     @Override
     public boolean insertDish(Dish dish) {
         entityManager.persist(dish);
+
         return true;
     }
 
@@ -46,12 +46,14 @@ public class DishDaoImpl implements DishDao {
     public boolean deleteDish(Dish dish) {
         Dish attachedDish = entityManager.getReference(Dish.class, dish.getId());
         entityManager.remove(attachedDish);
+
         return true;
     }
 
     @Override
     public boolean updateDish(Dish dish) {
         entityManager.merge(dish);
+
         return true;
     }
 }

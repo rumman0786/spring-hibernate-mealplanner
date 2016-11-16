@@ -76,5 +76,4 @@ public class MenuTypeDaoImpl implements MenuTypeDao {
         }
         return null;
     }
-
 }
