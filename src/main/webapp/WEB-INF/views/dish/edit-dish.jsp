@@ -26,12 +26,14 @@
                     <label for="dishname" class="sr-only">Dish Name</label>
                     <form:input type="text" id="dishname" class="form-control" placeholder="Dish Name" name="dishname"
                            path="name" required="required" autofocus="autofocus"/>
+                    <form:errors path="name" cssClass="error" />
                 </div>
                 
                 <div class="form-group">
                     <label for="calories" class="sr-only">Calories</label>
                     <form:input type="text" id="calories" class="form-control" name="calories" placeholder="Calories"
-                                path="calories"  required="required"/>
+                                path="calories" required="required"/>
+                    <form:errors path="calories" cssClass="error" />
                 </div>
 
                 <form:hidden path="id"/>
