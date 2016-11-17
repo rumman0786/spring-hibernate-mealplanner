@@ -23,21 +23,5 @@ public class DishCommandValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "dishname.required");
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "calories", "dishcalories.required");
-
-//
-//        if (command.getName() == MedAdministrationRecordType.UNDEFINED) {
-//            errors.reject("mar.error.record.type.required", "Record type is required.");
-//        }
-//
-//        String administerTimeStr = command.getAdministerTime();
-//        if (command.getMedType() == MedicationTypeConstants.PRN_MEDICATION || command.getMedType() == MedicationTypeConstants.PRN_TREATMENT) {
-//            if (StringUtils.isEmpty(administerTimeStr)) {
-//                errors.reject("mar.error.administer.time.required", "Administer time is required.");
-//            }
-//        }
-//
-//        if ((command.getRecordType() == MedAdministrationRecordType.DELETED) && (command.getId() == 0)) {
-//            errors.reject("mar.error.delete.new.data", "Slot cannot be Deleted before the form is saved.");
-//        }
     }
 }

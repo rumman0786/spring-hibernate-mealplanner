@@ -45,6 +45,7 @@
     </bean>
 
     <bean id="dishCommandValidator" class="net.therap.mealplanner.web.validator.DishCommandValidator" />
+    <bean id="mealCommandValidator" class="net.therap.mealplanner.web.validator.MealCommandValidator" />
     <bean id="userCommandValidator" class="net.therap.mealplanner.web.validator.UserCommandValidator" />
 
     <!--<bean id="myBeansValidator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">-->

@@ -75,10 +75,6 @@ public class Dish implements Serializable {
 
     @Override
     public String toString() {
-
-        return "Dish{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", calories='" + calories + '\'' + '}';
+        return name;
     }
 }

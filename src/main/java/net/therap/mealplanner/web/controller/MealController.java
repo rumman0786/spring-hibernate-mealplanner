@@ -7,11 +7,22 @@ import net.therap.mealplanner.entity.Dish;
 import net.therap.mealplanner.entity.Meal;
 import net.therap.mealplanner.entity.MenuType;
 import net.therap.mealplanner.service.MealManager;
+import net.therap.mealplanner.web.command.DishCommand;
+import net.therap.mealplanner.web.command.MealCommand;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
@@ -27,12 +38,24 @@ public class MealController {
 
     @Autowired
     private DishDao dishDao;
+
     @Autowired
     private MealDao mealDao;
+
     @Autowired
     MealManager mealManager;
+
     @Autowired
     MenuTypeDaoImpl menuTypeDao;
+
+    @Autowired
+    @Qualifier("mealCommandValidator")
+    private Validator validator;
+
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
+        binder.setValidator(validator);
+    }
 
     @RequestMapping(value = "/meal-list", method = RequestMethod.GET)
     public ModelAndView showMealList() {
@@ -44,38 +67,57 @@ public class MealController {
     }
 
     @RequestMapping(value = "/admin/add-meal", method = RequestMethod.GET)
-    public ModelAndView showAddDish() {
-        ModelAndView model = new ModelAndView("meal/add-meal");
-        model.addObject("page", "meal");
-        model.addObject("menuTypes", menuTypeDao.findAll());
-        model.addObject("dishLish", dishDao.findAll());
-        model.addObject("meal", new Meal());
-        return model;
+    public String showAddDish(Model model) {
+
+        if(!model.containsAttribute("meal")) {
+            model.addAttribute("meal", new MealCommand());
+        }
+        model.addAttribute("page", "meal");
+        model.addAttribute("menuTypes", menuTypeDao.findAll());
+        model.addAttribute("dishList", dishDao.findAll());
+
+        return "meal/add-meal";
     }
 
     @RequestMapping(value = "/admin/add-meal", method = RequestMethod.POST)
-    public ModelAndView handleAddMeal(HttpServletRequest request) {
-        String name = request.getParameter("mealname");
-        String strMenuType = request.getParameter("menu_type");
-        String[] dishList = request.getParameterValues("dish_list");
-        String day = request.getParameter("day");
-        MenuType menuType = menuTypeDao.getMenuType(Integer.parseInt(strMenuType));
-        Meal meal = new Meal(menuType, name, day);
-        Set<Dish> dishSet = new HashSet<Dish>();
-        for (String d : dishList) {
-            Dish dish = dishDao.findById(Integer.parseInt(d));
-            dishSet.add(dish);
+    public String handleAddMeal(@ModelAttribute("meal") @Validated MealCommand mealCommand,
+                                      BindingResult bindingResult,
+                                      RedirectAttributes redirectAttributes,
+                                      Model model) {
+//        String name = request.getParameter("mealname");
+//        String strM
+// enuType = request.getParameter("menu_type");
+//        String[] dishList = request.getParameterValues("dish_list");
+//        String day = request.getParameter("day");
+        System.out.println(mealCommand);
+        if(bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.meal", bindingResult);
+            redirectAttributes.addFlashAttribute("meal", mealCommand);
+            System.out.println("Ocvcuredsf");
+            return "redirect:/admin/add-meal";
         }
-        meal.setDishSet(dishSet);
+//
+//        if (bindingResult.hasErrors()) {
+//            System.out.println("Paisi");
+//            return new ModelAndView("meal/add-meal");
+//        }
+//        MenuType menuType = menuTypeDao.getMenuType(Integer.parseInt(strMenuType));
+//        Meal meal = new Meal(menuType, name, day);
+//        Set<Dish> dishSet = new HashSet<Dish>();
+//        for (String d : dishList) {
+//            Dish dish = dishDao.findById(Integer.parseInt(d));
+//            dishSet.add(dish);
+//        }
+//        meal.setDishSet(dishSet);
 
-        boolean status = mealManager.addMealToMenu(meal);
+//        boolean status = mealManager.addMealToMenu(meal);
         String redirectUrl = "/meal-list";
-        if (status) {
-            redirectUrl += "?success=success";
-        } else {
-            redirectUrl += "?failure=failure";
-        }
-        return new ModelAndView("redirect:" + redirectUrl);
+//        if (status) {
+//            redirectUrl += "?success=success";
+//        } else {
+//            redirectUrl += "?failure=failure";
+//        }
+        return "redirect:" + redirectUrl;
     }
 
     @RequestMapping(value = "/admin/edit-meal", method = RequestMethod.GET)
