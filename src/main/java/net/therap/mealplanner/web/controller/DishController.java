@@ -32,7 +32,7 @@ public class DishController {
     private DishDao dishDao;
 
     @Autowired
-    DishManager dishManager;
+    private DishManager dishManager;
 
     @Autowired
     @Qualifier("dishCommandValidator")
