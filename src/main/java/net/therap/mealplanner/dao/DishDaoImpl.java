@@ -20,7 +20,7 @@ public class DishDaoImpl implements DishDao {
     @Override
     @SuppressWarnings("unchecked")
     public List<Dish> findAll() {
-        return (List<Dish>) entityManager.createQuery("from Dish").getResultList();
+        return entityManager.createQuery("from Dish").getResultList();
     }
 
     @Override

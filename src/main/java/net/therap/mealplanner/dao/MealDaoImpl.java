@@ -23,7 +23,7 @@ public class MealDaoImpl implements MealDao {
     @Override
     @SuppressWarnings("unchecked")
     public List<Meal> findAll() {
-        return (List<Meal>) entityManager.createQuery("from Meal").getResultList();
+        return entityManager.createQuery("from Meal").getResultList();
     }
 
     @Override
