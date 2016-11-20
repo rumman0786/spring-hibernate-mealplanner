@@ -19,14 +19,12 @@ public class UserDaoImpl implements UserDao {
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     @SuppressWarnings("unchecked")
     public List<User> findAll() {
         return (List<User>) entityManager.createQuery("from User").getResultList();
     }
 
     @Override
-    @Transactional
     public User findById(int userId) {
         return entityManager.find(User.class, userId);
     }
@@ -37,7 +35,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    @Transactional
     @SuppressWarnings("unchecked")
     public User findByNamePassword(String username, String password) {
         User user = null;
