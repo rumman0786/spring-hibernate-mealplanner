@@ -11,10 +11,12 @@ import org.springframework.validation.Validator;
  */
 public class UserCommandValidator implements Validator {
 
+    @Override
     public boolean supports(Class clazz) {
         return UserCommand.class.isAssignableFrom(clazz);
     }
 
+    @Override
     public void validate(Object target, Errors errors) {
 
         UserCommand command = (UserCommand) target;
@@ -32,7 +34,7 @@ public class UserCommandValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "confirmPassword.required");
 
 
-        if (!command.getPassword().equals(command.getConfirmPassword() ) ) {
+        if (!command.getPassword().equals(command.getConfirmPassword())) {
             errors.rejectValue("password", "bothPassword", new Object[]{"'Both Passwords'"}, "");
         }
     }
