@@ -14,24 +14,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class MealManager {
 
     @Autowired
-    MealDao mealDao;
+    private MealDao mealDao;
 
     @Transactional
     public boolean addMealToMenu(Meal meal) {
-//        MealDao mealDao = new MealDaoImpl();
         return mealDao.insertMeal(meal);
     }
 
     @Transactional
     public boolean updateMealInMenu(Meal meal) {
-//        MealDao mealDao = new MealDaoImpl();
         return mealDao.updateMeal(meal);
     }
 
     @Transactional
     public boolean deleteMealFromMenu(Meal meal) {
-//        MealDao mealDao = new MealDaoImpl();
         return mealDao.deleteMeal(meal);
     }
-
 }
