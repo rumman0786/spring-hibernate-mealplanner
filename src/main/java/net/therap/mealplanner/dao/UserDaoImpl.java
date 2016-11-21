@@ -4,8 +4,7 @@ import net.therap.mealplanner.entity.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -38,13 +37,14 @@ public class UserDaoImpl implements UserDao {
     @SuppressWarnings("unchecked")
     public User findByNamePassword(String username, String password) {
         User user = null;
-        List<User> list = (List<User>) entityManager.createQuery("Select u from User u where u.username = :userName and u.password =:passWord")
-                .setParameter("userName", username)
-                .setParameter("passWord", User.makePassword(password))
-                .getResultList();
 
-        if (list.size() > 0) {
-            user = list.get(0);
+        try {
+            user = (User) entityManager.createQuery("Select u from User u where u.username = :userName and u.password =:passWord")
+                    .setParameter("userName", username)
+                    .setParameter("passWord", User.makePassword(password))
+                    .getSingleResult();
+        } catch (NoResultException | NonUniqueResultException e) {
+            e.printStackTrace();
         }
 
         return user;
