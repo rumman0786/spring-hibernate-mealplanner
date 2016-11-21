@@ -23,7 +23,7 @@ public class MealDaoImpl implements MealDao {
     @Override
     @SuppressWarnings("unchecked")
     public List<Meal> findAll() {
-        return (List<Meal>) entityManager.createQuery("from Meal").getResultList();
+        return entityManager.createQuery("from Meal").getResultList();
     }
 
     @Override
@@ -38,9 +38,9 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public boolean insertMeal(Meal meal) {
-        Set<Dish> newDishSet = new HashSet<Dish>();
+        Set<Dish> newDishSet = new HashSet<>();
 
-        for (Dish dish: meal.getDishSet()){
+        for (Dish dish : meal.getDishSet()) {
             newDishSet.add(entityManager.getReference(Dish.class, dish.getId()));
         }
 
@@ -60,7 +60,7 @@ public class MealDaoImpl implements MealDao {
     @Override
     public boolean deleteMeal(Meal meal) {
         Meal attachedMeal = entityManager.getReference(Meal.class, meal.getId());
-        entityManager.remove(attachedMeal );
+        entityManager.remove(attachedMeal);
 
         return true;
     }

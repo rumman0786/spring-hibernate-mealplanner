@@ -12,25 +12,28 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 
-    <context:component-scan base-package="net.therap.mealplanner.service"/>
-    <context:component-scan base-package="net.therap.mealplanner.entity"/>
-    <context:component-scan base-package="net.therap.mealplanner.dao"/>
-    <context:component-scan base-package="net.therap.mealplanner.web.validator"/>
+    <context:component-scan base-package="net.therap.mealplanner.service,
+    net.therap.mealplanner.entity,
+    net.therap.mealplanner.dao,
+    net.therap.mealplanner.web.validator"/>
+    <!--<context:component-scan base-package="net.therap.mealplanner.entity"/>-->
+    <!--<context:component-scan base-package="net.therap.mealplanner.dao"/>-->
+    <!--<context:component-scan base-package="net.therap.mealplanner.web.validator"/>-->
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/mealplanner" />
-        <property name="username" value="root" />
-        <property name="password" value="root" />
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/mealplanner"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
     </bean>
 
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="testPU" />
-        <property name="dataSource" ref="dataSource" />
+        <property name="persistenceUnitName" value="testPU"/>
+        <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
         </property>
         <property name="jpaProperties">
             <props>
@@ -41,19 +44,19 @@
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <bean id="dishCommandValidator" class="net.therap.mealplanner.web.validator.DishCommandValidator" />
-    <bean id="userCommandValidator" class="net.therap.mealplanner.web.validator.UserCommandValidator" />
+    <bean id="dishCommandValidator" class="net.therap.mealplanner.web.validator.DishCommandValidator"/>
+    <bean id="userCommandValidator" class="net.therap.mealplanner.web.validator.UserCommandValidator"/>
 
     <!--<bean id="myBeansValidator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">-->
-        <!--<property name="validationMessageSource" ref="messageSource"/>-->
+    <!--<property name="validationMessageSource" ref="messageSource"/>-->
     <!--</bean>-->
 
     <bean id="messageSource"
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:basename="/WEB-INF/classes/ValidationMessages"/>
 
-    <tx:annotation-driven />
+    <tx:annotation-driven/>
 </beans>

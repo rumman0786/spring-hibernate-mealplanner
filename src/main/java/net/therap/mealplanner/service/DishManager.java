@@ -30,5 +30,4 @@ public class DishManager {
     public boolean deleteDish(Dish dish) {
         return dishDao.deleteDish(dish);
     }
-
 }

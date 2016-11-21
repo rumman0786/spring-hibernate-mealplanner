@@ -2,7 +2,6 @@ package net.therap.mealplanner.dao;
 
 import net.therap.mealplanner.entity.Dish;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,11 +20,10 @@ public class DishDaoImpl implements DishDao {
     @Override
     @SuppressWarnings("unchecked")
     public List<Dish> findAll() {
-        return (List<Dish>) entityManager.createQuery("from Dish").getResultList();
+        return entityManager.createQuery("from Dish").getResultList();
     }
 
     @Override
-    @Transactional
     public Dish findById(int dishId) {
         return entityManager.find(Dish.class, dishId);
     }
