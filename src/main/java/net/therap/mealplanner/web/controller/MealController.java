@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,31 +40,35 @@ public class MealController {
     @RequestMapping(value = "/meal-list", method = RequestMethod.GET)
     public ModelAndView showMealList() {
         List<Meal> mealList = mealDao.findAll();
+
         ModelAndView model = new ModelAndView("meal/list_meal");
         model.addObject("page", "meal");
         model.addObject("mealList", mealList);
+
         return model;
     }
 
     @RequestMapping(value = "/admin/add-meal", method = RequestMethod.GET)
-    public ModelAndView showAddDish() {
+    public ModelAndView showAddMeal() {
         ModelAndView model = new ModelAndView("meal/add-meal");
         model.addObject("page", "meal");
         model.addObject("menuTypes", menuTypeDao.findAll());
         model.addObject("dishLish", dishDao.findAll());
         model.addObject("meal", new Meal());
+
         return model;
     }
 
     @RequestMapping(value = "/admin/add-meal", method = RequestMethod.POST)
-    public ModelAndView handleAddMeal(HttpServletRequest request) {
-        String name = request.getParameter("mealname");
-        String strMenuType = request.getParameter("menu_type");
-        String[] dishList = request.getParameterValues("dish_list");
-        String day = request.getParameter("day");
+    public ModelAndView addMeal(@RequestParam("mealname") String name,
+                                @RequestParam("menu_type") String strMenuType,
+                                @RequestParam("dish_list") String[] dishList,
+                                @RequestParam("day") String day) {
+
         MenuType menuType = menuTypeDao.getMenuType(Integer.parseInt(strMenuType));
         Meal meal = new Meal(menuType, name, day);
-        Set<Dish> dishSet = new HashSet<Dish>();
+        Set<Dish> dishSet = new HashSet<>();
+
         for (String d : dishList) {
             Dish dish = dishDao.findById(Integer.parseInt(d));
             dishSet.add(dish);
@@ -78,36 +82,42 @@ public class MealController {
         } else {
             redirectUrl += "?failure=failure";
         }
+
         return new ModelAndView("redirect:" + redirectUrl);
     }
 
     @RequestMapping(value = "/admin/edit-meal", method = RequestMethod.GET)
-    public ModelAndView showEditDish(HttpServletRequest request) {
-        int id = Integer.parseInt(request.getParameter("id"));
+    public ModelAndView showEditMeal(@RequestParam("id") String mealId) {
+        int id = Integer.parseInt(mealId);
+
         ModelAndView model = new ModelAndView("meal/edit-meal");
         Meal meal = mealDao.findById(id);
         model.addObject("meal", meal);
         model.addObject("page", "meal");
         model.addObject("menuTypes", menuTypeDao.findAll());
         model.addObject("dishLish", dishDao.findAll());
+
         return model;
     }
 
     @RequestMapping(value = "/admin/edit-meal", method = RequestMethod.POST)
-    public ModelAndView handleEditDish(HttpServletRequest request) {
-        int id = Integer.parseInt(request.getParameter("meal_id"));
-        String name = request.getParameter("mealname");
-        String strMenuType = request.getParameter("menu_type");
-        String[] dishList = request.getParameterValues("dish_list");
-        String day = request.getParameter("day");
+    public ModelAndView editMeal(@RequestParam("meal_id") String mealId,
+                                 @RequestParam("mealname") String name,
+                                 @RequestParam("menu_type") String strMenuType,
+                                 @RequestParam("dish_list") String[] dishList,
+                                 @RequestParam("day") String day) {
+
+        int id = Integer.parseInt(mealId);
 
         MenuType menuType = menuTypeDao.getMenuType(Integer.parseInt(strMenuType));
-        Meal meal = mealDao.findById(id);
 
+        Meal meal = mealDao.findById(id);
         meal.setName(name);
         meal.setMenuType(menuType);
         meal.setDay(day);
+
         Set<Dish> dishSet = new HashSet<Dish>();
+
         for (String d : dishList) {
             Dish dish = dishDao.findById(Integer.parseInt(d));
             dishSet.add(dish);
@@ -121,15 +131,18 @@ public class MealController {
         } else {
             redirectUrl += "?failure=failure";
         }
+
         return new ModelAndView("redirect:" + redirectUrl);
     }
 
     @RequestMapping(value = "/admin/delete-meal/", method = RequestMethod.GET)
-    public ModelAndView deleteDish(HttpServletRequest request) {
-        int id = Integer.parseInt(request.getParameter("id"));
+    public ModelAndView deleteMeal(@RequestParam("id") String mealId) {
+        int id = Integer.parseInt(mealId);
+
         Meal meal = mealDao.findById(id);
         boolean status = mealManager.deleteMealFromMenu(meal);
         String redirectUrl = "/meal-list";
+
         return new ModelAndView("redirect:" + redirectUrl);
     }
 
