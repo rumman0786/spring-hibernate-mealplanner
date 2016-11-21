@@ -12,10 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,17 +43,20 @@ public class DishController {
     @RequestMapping(value = "/dish-list", method = RequestMethod.GET)
     public ModelAndView showDishList() {
         List<Dish> dishList = dishDao.findAll();
-        ModelAndView model = new ModelAndView("dish/list_dish");
-        model.addObject("page", "dish");
-        model.addObject("dishList", dishList);
+
+        ModelAndView model = new ModelAndView("dish/list_dish")
+                .addObject("page", "dish")
+                .addObject("dishList", dishList);
+
         return model;
     }
 
     @RequestMapping(value = "/admin/add-dish", method = RequestMethod.GET)
     public ModelAndView showAddDish() {
-        ModelAndView model = new ModelAndView("dish/add-dish");
-        model.addObject("page", "dish");
-        model.addObject("dish", new DishCommand());
+        ModelAndView model = new ModelAndView("dish/add-dish")
+                .addObject("page", "dish")
+                .addObject("dish", new DishCommand());
+
         return model;
     }
 
@@ -80,13 +80,13 @@ public class DishController {
         } else {
             redirectUrl += "?failure=failure";
         }
+
         return new ModelAndView("redirect:" + redirectUrl);
     }
 
     @RequestMapping(value = "/admin/edit-dish", method = RequestMethod.GET)
     public ModelAndView showEditDish(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
-        ModelAndView model = new ModelAndView("dish/edit-dish");
         Dish dish = dishDao.findById(id);
 
         DishCommand dishCommand = new DishCommand();
@@ -94,8 +94,9 @@ public class DishController {
         dishCommand.setName(dish.getName());
         dishCommand.setCalories(dish.getCalories());
 
-        model.addObject("dish", dishCommand);
-        model.addObject("page", "dish");
+        ModelAndView model = new ModelAndView("dish/edit-dish")
+                .addObject("dish", dishCommand)
+                .addObject("page", "dish");
 
         return model;
     }
@@ -121,16 +122,17 @@ public class DishController {
         } else {
             redirectUrl += "?failure=failure";
         }
+
         return new ModelAndView("redirect:" + redirectUrl);
     }
 
     @RequestMapping(value = "/admin/delete-dish/", method = RequestMethod.GET)
-    public ModelAndView deleteDish(HttpServletRequest request) {
-        int id = Integer.parseInt(request.getParameter("id"));
+    public ModelAndView deleteDish(@RequestParam("id") String dishId) {
+        int id = Integer.parseInt(dishId);
         Dish dish = dishDao.findById(id);
         boolean status = dishManager.deleteDish(dish);
         String redirectUrl = "/dish-list";
+
         return new ModelAndView("redirect:" + redirectUrl);
     }
-
 }

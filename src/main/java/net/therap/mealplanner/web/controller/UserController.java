@@ -1,9 +1,7 @@
 package net.therap.mealplanner.web.controller;
 
 import net.therap.mealplanner.dao.UserDao;
-import net.therap.mealplanner.entity.Dish;
 import net.therap.mealplanner.entity.User;
-import net.therap.mealplanner.web.command.DishCommand;
 import net.therap.mealplanner.web.command.UserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,16 +11,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -45,18 +36,21 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user-list", method = RequestMethod.GET)
-    public String showUserList(HttpServletRequest request) {
+    public ModelAndView showUserList() {
         List<User> userList = userDao.findAll();
-        request.setAttribute("userList", userList);
-        request.setAttribute("page", "user");
-        return "user/list_user";
+
+        ModelAndView modelAndView = new ModelAndView("user/list_user")
+                .addObject("userList", userList)
+                .addObject("page", "user");
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/add-user", method = RequestMethod.GET)
     public ModelAndView showAddUserPage() {
-        ModelAndView modelAndView = new ModelAndView("user/add-user");
-        modelAndView.addObject("page", "user");
-        modelAndView.addObject("formUser", new UserCommand());
+        ModelAndView modelAndView = new ModelAndView("user/add-user")
+                .addObject("page", "user")
+                .addObject("formUser", new UserCommand());
 
         return modelAndView;
     }
@@ -90,9 +84,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/edit-user", method = RequestMethod.GET)
-    public ModelAndView showEditUser(HttpServletRequest request) {
-        int id = Integer.parseInt(request.getParameter("id"));
-        ModelAndView model = new ModelAndView("user/edit-user");
+    public ModelAndView showEditUser(@RequestParam("id") String userId) {
+        int id = Integer.parseInt(userId);
         User editUser = userDao.findById(id);
 
         UserCommand userCommand = new UserCommand();
@@ -105,8 +98,9 @@ public class UserController {
         userCommand.setPassword(editUser.getPassword());
         userCommand.setConfirmPassword(editUser.getPassword());
 
-        model.addObject("editUser", userCommand);
-        model.addObject("page", "user");
+        ModelAndView model = new ModelAndView("user/edit-user")
+                .addObject("editUser", userCommand)
+                .addObject("page", "user");
 
         return model;
     }
@@ -138,12 +132,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/delete-user", method = RequestMethod.GET)
-    public String deleteUser(HttpServletRequest request) {
-        int id = Integer.parseInt(request.getParameter("id"));
+    public ModelAndView deleteUser(@RequestParam("id") String userId) {
+        int id = Integer.parseInt(userId);
         User user = userDao.findById(id);
         boolean status = userDao.deleteUser(user);
         String redirectUrl = "/user-list";
-        return "redirect:" + redirectUrl;
-    }
 
+        return new ModelAndView("redirect:" + redirectUrl);
+    }
 }

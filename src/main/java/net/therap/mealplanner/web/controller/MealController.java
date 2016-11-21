@@ -41,20 +41,20 @@ public class MealController {
     public ModelAndView showMealList() {
         List<Meal> mealList = mealDao.findAll();
 
-        ModelAndView model = new ModelAndView("meal/list_meal");
-        model.addObject("page", "meal");
-        model.addObject("mealList", mealList);
+        ModelAndView model = new ModelAndView("meal/list_meal")
+                .addObject("page", "meal")
+                .addObject("mealList", mealList);
 
         return model;
     }
 
     @RequestMapping(value = "/admin/add-meal", method = RequestMethod.GET)
     public ModelAndView showAddMeal() {
-        ModelAndView model = new ModelAndView("meal/add-meal");
-        model.addObject("page", "meal");
-        model.addObject("menuTypes", menuTypeDao.findAll());
-        model.addObject("dishLish", dishDao.findAll());
-        model.addObject("meal", new Meal());
+        ModelAndView model = new ModelAndView("meal/add-meal")
+                .addObject("page", "meal")
+                .addObject("menuTypes", menuTypeDao.findAll())
+                .addObject("dishLish", dishDao.findAll())
+                .addObject("meal", new Meal());
 
         return model;
     }
@@ -89,13 +89,13 @@ public class MealController {
     @RequestMapping(value = "/admin/edit-meal", method = RequestMethod.GET)
     public ModelAndView showEditMeal(@RequestParam("id") String mealId) {
         int id = Integer.parseInt(mealId);
-
-        ModelAndView model = new ModelAndView("meal/edit-meal");
         Meal meal = mealDao.findById(id);
-        model.addObject("meal", meal);
-        model.addObject("page", "meal");
-        model.addObject("menuTypes", menuTypeDao.findAll());
-        model.addObject("dishLish", dishDao.findAll());
+
+        ModelAndView model = new ModelAndView("meal/edit-meal")
+                .addObject("meal", meal)
+                .addObject("page", "meal")
+                .addObject("menuTypes", menuTypeDao.findAll())
+                .addObject("dishLish", dishDao.findAll());
 
         return model;
     }
