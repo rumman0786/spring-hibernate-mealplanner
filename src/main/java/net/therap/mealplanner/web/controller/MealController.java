@@ -2,7 +2,7 @@ package net.therap.mealplanner.web.controller;
 
 import net.therap.mealplanner.dao.DishDao;
 import net.therap.mealplanner.dao.MealDao;
-import net.therap.mealplanner.dao.MenuTypeDaoImpl;
+import net.therap.mealplanner.dao.MenuTypeDao;
 import net.therap.mealplanner.entity.Dish;
 import net.therap.mealplanner.entity.Meal;
 import net.therap.mealplanner.entity.MenuType;
@@ -27,12 +27,15 @@ public class MealController {
 
     @Autowired
     private DishDao dishDao;
+
     @Autowired
     private MealDao mealDao;
+
     @Autowired
-    MealManager mealManager;
+    private MealManager mealManager;
+
     @Autowired
-    MenuTypeDaoImpl menuTypeDao;
+    private MenuTypeDao menuTypeDao;
 
     @RequestMapping(value = "/meal-list", method = RequestMethod.GET)
     public ModelAndView showMealList() {

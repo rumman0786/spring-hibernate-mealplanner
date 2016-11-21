@@ -1,79 +1,76 @@
 package net.therap.mealplanner.dao;
 
 import net.therap.mealplanner.entity.MenuType;
-import net.therap.mealplanner.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
- * Created by rumman on 10/18/16.
+ * @author rumman
+ * @since 10/26/16
  */
 @Repository
 public class MenuTypeDaoImpl implements MenuTypeDao {
-    String[] menuTypes = {"BREAKFAST", "LUNCH"};
+
+    private String[] menuTypes = {"BREAKFAST", "LUNCH", "DINNER"};
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     @SuppressWarnings("unchecked")
     public void initMenuType() {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        List<MenuType> menuTypeList = session.createCriteria(MenuType.class).list();
-        tx.commit();
-        session.close();
+        List<MenuType> menuTypeList = entityManager.createQuery("from MenuType").getResultList();
 
         if (menuTypeList.size() == 0) {
             insertMenuType(menuTypes);
         }
     }
 
+    @Transactional
     public boolean insertMenuType(String[] menuTypes) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
+
         for (String menuTypeString : menuTypes) {
-            Session session = sessionFactory.openSession();
             MenuType menuType = new MenuType(menuTypeString);
-            session.beginTransaction();
-            session.save(menuType);
-            session.getTransaction().commit();
-            System.out.println("MenuType =" + menuType.getCategory());
-            session.close();
+            entityManager.persist(menuType);
         }
+
         return true;
     }
 
     @Override
     @SuppressWarnings("unchecked")
+    @Transactional
     public List<MenuType> findAll() {
-        SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        List<MenuType> menuTypeList = session.createCriteria(MenuType.class).list();
-        tx.commit();
-        session.close();
-        return menuTypeList;
+        return entityManager.createQuery("from MenuType").getResultList();
     }
 
+    @Override
     public MenuType getMenuType(String type) {
         List<MenuType> menuTypeList = findAll();
+
         for (MenuType menuType : menuTypeList) {
             if (menuType.getCategory().equals(type)) {
                 return menuType;
             }
         }
+
         return null;
     }
 
+    @Override
     public MenuType getMenuType(int menuTypeId) {
         List<MenuType> menuTypeList = findAll();
+
         for (MenuType menuType : menuTypeList) {
             if (menuType.getId() == menuTypeId) {
                 return menuType;
             }
         }
+
         return null;
     }
 }
